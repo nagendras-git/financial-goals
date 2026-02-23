@@ -140,6 +140,13 @@
     flex-shrink: 0;
   }
 
+  .sec-move-btn {
+    background: none; border: none; font-size: 13px; font-weight: 700;
+    color: var(--text2); cursor: pointer; padding: 0 5px;
+    line-height: 1; flex-shrink: 0;
+  }
+  .sec-move-btn:active { color: var(--blue); }
+
   .section-chevron {
     font-size: 12px; color: var(--text2);
     transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
@@ -216,6 +223,7 @@
     overflow: hidden;
   }
   .goal-card:last-child { margin-bottom: 12px; }
+
 
   .goal-header {
     padding: 12px 14px 0;
@@ -540,6 +548,19 @@
   </div>
 </div>
 
+<!-- RENAME GOAL MODAL -->
+<div class="overlay" id="m-rename" onclick="overlayClose(event,'m-rename')">
+  <div class="modal">
+    <div class="m-handle"></div>
+    <div class="m-title">Rename Goal</div>
+    <div class="fg"><label class="fl">Goal Name</label><input class="fi" id="rename-inp" placeholder="Enter new name"/></div>
+    <div class="m-actions">
+      <button class="btn-cancel" onclick="closeModal('m-rename')">Cancel</button>
+      <button class="btn-save" onclick="saveRename()">Rename</button>
+    </div>
+  </div>
+</div>
+
 <!-- ROADMAP MODAL -->
 <div class="overlay" id="m-roadmap" onclick="overlayClose(event,'m-roadmap')">
   <div class="modal">
@@ -580,6 +601,7 @@
           <option>Education</option>
           <option>FIRE / Retirement</option>
           <option>Housing</option>
+          <option>Emergency Fund</option>
           <option>Vacation</option>
           <option>Gold / Hedge</option>
           <option>Other</option>
@@ -661,7 +683,7 @@ let insurances = JSON.parse(localStorage.getItem('ins') || JSON.stringify([
 ]));
 
 let sectionOrder = JSON.parse(localStorage.getItem('secOrder') || JSON.stringify(
-  ['portfolio','insurance','Education','FIRE / Retirement','Housing','Vacation','Gold / Hedge','roadmap','checklist']
+  ['portfolio','insurance','Education','FIRE / Retirement','Housing','Emergency Fund','Vacation','Gold / Hedge','roadmap','checklist']
 ));
 
 let editingInsId = null;
@@ -709,7 +731,7 @@ const SC = {
 
 const CAT_EMOJI = {
   'Education':'🎓','FIRE / Retirement':'🔥',
-  'Housing':'🏠','Vacation':'✈️','Gold / Hedge':'🥇','Other':'📌'
+  'Housing':'🏠','Emergency Fund':'🛟','Vacation':'✈️','Gold / Hedge':'🥇','Other':'📌'
 };
 
 // ── LOCAL STORAGE GOALS ──────────────────────────────────────────────────
@@ -812,11 +834,18 @@ function catToSecClass(id) {
 function renderSection({id, emoji, label, meta, body, draggable}) {
   const isOpen = openSections.has(id);
   const cls = catToSecClass(id);
-  const realId = id.startsWith('cat-') ? id : id;
+  const normId = id.startsWith('cat-') ? id.replace('cat-','') : id;
+  const idx = sectionOrder.indexOf(normId);
+  const canUp   = idx > 0;
+  const canDown = idx < sectionOrder.length - 1;
   return `
-  <div class="section ${cls} ${isOpen ? 'open' : ''}" id="sec-${id}" draggable="true" data-sid="${id}">
-    <div class="section-toggle-wrap">
-      <button class="section-toggle" style="flex:1" onclick="toggleSection('${id}')">
+  <div class="section ${cls} ${isOpen ? 'open' : ''}" id="sec-${id}" data-sid="${id}">
+    <div class="section-toggle-wrap" style="display:flex;align-items:center">
+      <div style="display:flex;flex-direction:column;padding:0 4px 0 10px;gap:1px;flex-shrink:0">
+        <button class="sec-move-btn" onclick="moveSection('${normId}',-1)" ${canUp?'':'disabled style="opacity:0.2;cursor:default"'} title="Move up">▲</button>
+        <button class="sec-move-btn" onclick="moveSection('${normId}',1)"  ${canDown?'':'disabled style="opacity:0.2;cursor:default"'} title="Move down">▼</button>
+      </div>
+      <button class="section-toggle" style="flex:1;padding-left:4px" onclick="toggleSection('${id}')">
         <span class="section-emoji">${emoji}</span>
         <span class="section-label">${label}</span>
         <span class="section-meta">${meta}</span>
@@ -1077,8 +1106,10 @@ function renderGoalCard(g) {
         <span class="pill ${sc.c}">${sc.l}</span>
       </div>
       <div class="goal-actions">
-        <button class="btn-icon" onclick="editGoal(${g.id})">✏️</button>
-        <button class="btn-icon del" onclick="delGoal(${g.id})"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <button class="btn-icon" onclick="moveGoal(${g.id},-1)" title="Move up">↑</button>
+        <button class="btn-icon" onclick="moveGoal(${g.id},1)"  title="Move down">↓</button>
+        <button class="btn-icon" onclick="editGoal(${g.id})"    title="Edit">✏️</button>
+        <button class="btn-icon del" onclick="delGoal(${g.id})" title="Delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
   <polyline points="3 6 5 6 21 6"></polyline>
   <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
   <path d="M10 11v6"></path>
@@ -1265,6 +1296,46 @@ function saveGoal() {
   setNavSub();
 }
 
+function moveGoal(id, dir) {
+  const idx = goals.findIndex(g => g.id === id);
+  if (idx === -1) return;
+  const cat = goals[idx].category;
+  // Get indices of all goals in same category
+  const catIdxs = goals.map((g,i) => g.category===cat ? i : -1).filter(i=>i!==-1);
+  const posInCat = catIdxs.indexOf(idx);
+  const newPos = posInCat + dir;
+  if (newPos < 0 || newPos >= catIdxs.length) return; // already at top/bottom
+  const swapIdx = catIdxs[newPos];
+  // Swap
+  [goals[idx], goals[swapIdx]] = [goals[swapIdx], goals[idx]];
+  saveGoalsToStorage();
+  // Keep section open
+  openSections.add(`cat-${cat}`);
+  renderAll();
+}
+
+let renamingId = null;
+function openRename(id) {
+  renamingId = id;
+  const g = goals.find(x => x.id === id);
+  if (!g) return;
+  document.getElementById('rename-inp').value = g.name;
+  openModal('m-rename');
+}
+
+function saveRename() {
+  const name = document.getElementById('rename-inp').value.trim();
+  if (!name) { toast('Please enter a name', true); return; }
+  const g = goals.find(x => x.id === renamingId);
+  if (!g) return;
+  g.name = name;
+  saveGoalsToStorage();
+  openSections.add(`cat-${g.category}`);
+  closeModal('m-rename');
+  renderAll();
+  toast('Goal renamed ✓');
+}
+
 function delGoal(id) {
   if (!confirm('Delete this goal?')) return;
   goals = goals.filter(g => g.id !== id);
@@ -1381,6 +1452,18 @@ function delMilestone(i) {
   localStorage.setItem('tl', JSON.stringify(TIMELINE));
   renderAll();
   toast('Milestone deleted');
+}
+
+// ── SECTION MOVE UP/DOWN ─────────────────────────────────────────────────────
+function moveSection(normId, dir) {
+  const idx = sectionOrder.indexOf(normId);
+  if (idx === -1) return;
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= sectionOrder.length) return;
+  const [moved] = sectionOrder.splice(idx, 1);
+  sectionOrder.splice(newIdx, 0, moved);
+  localStorage.setItem('secOrder', JSON.stringify(sectionOrder));
+  renderAll();
 }
 
 // ── SECTION DRAG REORDER ─────────────────────────────────────────────────────
