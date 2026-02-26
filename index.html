@@ -86,8 +86,10 @@
     padding: 52px 20px 12px;
     border-bottom: 1px solid rgba(0,0,0,0.07);
   }
-  .nav-inner {
+  .nav > .nav-inner {
     max-width: 480px; margin: 0 auto;
+  }
+  .nav-inner {
     display: flex; justify-content: space-between; align-items: center;
   }
   .nav-title { font-size: 22px; font-weight: 800; color: var(--text1); letter-spacing: -0.4px; }
@@ -111,14 +113,18 @@
 
   /* ── BOTTOM NAV ── */
   .bottom-nav {
-    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 100;
     background: rgba(235,235,240,0.97);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-top: 1px solid rgba(0,0,0,0.09);
+    border-left: 1px solid rgba(0,0,0,0.07);
+    border-right: 1px solid rgba(0,0,0,0.07);
+    border-radius: 0;
     display: flex; justify-content: space-around; align-items: center;
     padding: 8px 0 20px;
-    max-width: 100%;
+    width: 100%;
+    max-width: 480px;
   }
   .tab-btn {
     flex: 1; display: flex; flex-direction: column;
@@ -773,7 +779,7 @@
 <!-- RENAME GOAL MODAL -->
 <div class="overlay" id="m-rename" onclick="overlayClose(event,'m-rename')">
   <div class="modal">
-    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title">Rename Goal</div><button class="m-close" onclick="closeModal('m-kn')" aria-label="Close">✕</button></div>
+    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title">Rename Goal</div><button class="m-close" onclick="closeModal('m-rename')" aria-label="Close">✕</button></div>
     <div class="fg"><label class="fl">Goal Name</label><input class="fi" id="rename-inp" placeholder="Enter new name"/></div>
     <div class="m-actions">
       <button class="btn-cancel" onclick="closeModal('m-rename')">Cancel</button>
@@ -785,7 +791,7 @@
 <!-- ROADMAP MODAL -->
 <div class="overlay" id="m-roadmap" onclick="overlayClose(event,'m-roadmap')">
   <div class="modal">
-    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title" id="m-roadmap-title">Add Milestone</div><button class="m-close" onclick="closeModal('m-rename')" aria-label="Close">✕</button></div>
+    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title" id="m-roadmap-title">Add Milestone</div><button class="m-close" onclick="closeModal('m-roadmap')" aria-label="Close">✕</button></div>
     <div class="fg"><label class="fl">Year / Period</label><input class="fi" id="r-year" placeholder="e.g. 2028 or 2032–33"/></div>
     <div class="fg"><label class="fl">Event Description</label><textarea class="ft" id="r-event" placeholder="e.g. Personal loan closed 🎉 Start house fund"></textarea></div>
     <div class="m-actions">
@@ -798,7 +804,7 @@
 <!-- CHECKLIST ADD MODAL -->
 <div class="overlay" id="m-checklist" onclick="overlayClose(event,'m-checklist')">
   <div class="modal">
-    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title">Add Checklist Item</div><button class="m-close" onclick="closeModal('m-roadmap')" aria-label="Close">✕</button></div>
+    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title">Add Checklist Item</div><button class="m-close" onclick="closeModal('m-checklist')" aria-label="Close">✕</button></div>
     <div class="fg"><label class="fl">Item</label><input class="fi" id="cl-item" placeholder="e.g. Review asset allocation 📊"/></div>
     <div class="m-actions">
       <button class="btn-cancel" onclick="closeModal('m-checklist')">Cancel</button>
@@ -810,13 +816,15 @@
 <!-- GOAL MODAL -->
 <div class="overlay" id="m-goal" onclick="overlayClose(event,'m-goal')">
   <div class="modal">
-    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title" id="m-goal-title">Add Goal</div><button class="m-close" onclick="closeModal('m-checklist')" aria-label="Close">✕</button></div>
+    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title" id="m-goal-title">Add Goal</div><button class="m-close" onclick="closeModal('m-goal')" aria-label="Close">✕</button></div>
     <div class="fg"><label class="fl">Goal Name</label><input class="fi" id="f-name" placeholder="e.g. Son's Graduation"/></div>
     <div class="f2">
       <div class="fg">
         <label class="fl">Category</label>
         <select class="fs" id="f-cat">
           <option>Education</option>
+          <option>Education – Son</option>
+          <option>Education – Daughter</option>
           <option>FIRE / Retirement</option>
           <option>Housing</option>
           <option>Emergency Fund</option>
@@ -847,7 +855,7 @@
     <div class="fg">
       <label class="fl">Tagged Funds & SIP</label>
       <div id="f-editor"></div>
-      <button class="btn-af" onclick="addFundRow()">＋ Add Fund Row</button>
+      <button class="btn-af" onclick="addFundRow()">Add Fund Row</button>
     </div>
     <div class="fg"><label class="fl">Exit Strategy / Notes</label><textarea class="ft" id="f-note" placeholder="e.g. 2037 → Move to HDFC BAF → SWP from 2040"></textarea></div>
     <div class="m-actions">
@@ -1140,7 +1148,8 @@ const SC = {
 };
 
 const CAT_EMOJI = {
-  'Education':'🎓','FIRE / Retirement':'🔥',
+  'Education':'🎓','Education – Son':'👦','Education – Daughter':'👧',
+  'FIRE / Retirement':'🔥',
   'Housing':'🏠','Emergency Fund':'🛟','Vacation':'✈️','Gold / Hedge':'🥇','Other':'📌'
 };
 
@@ -1271,7 +1280,7 @@ function renderGoalsPage() {
     const k = g.category || 'Other';
     (groups[k] = groups[k] || []).push(g);
   });
-  const catOrder = ['Education','FIRE / Retirement','Housing','Emergency Fund','Vacation','Gold / Hedge','Other'];
+  const catOrder = ['Education','Education – Son','Education – Daughter','FIRE / Retirement','Housing','Emergency Fund','Vacation','Gold / Hedge','Other'];
   Object.keys(groups).forEach(cat => { if (!catOrder.includes(cat)) catOrder.push(cat); });
 
   let html = '';
@@ -1350,7 +1359,7 @@ function renderInvestmentGroup(items) {
   const type = items[0].type;
   return items.map(inv => renderInvCard(inv)).join('') +
     `<div class="add-goal-row">
-      <button class="btn-add-inline" onclick="openAddInvestmentForType('${type}')">+ Add ${INV_TYPE_LABELS[type]||type}</button>
+      <button class="btn-add-inline" onclick="openAddInvestmentForType('${type}')">Add ${INV_TYPE_LABELS[type]||type}</button>
     </div>`;
 }
 
