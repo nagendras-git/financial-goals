@@ -144,14 +144,14 @@
   .section {
     background: #F5F6FA;
     border-radius: 16px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.07);
     overflow: hidden;
   }
   .section-toggle-wrap { background: #FFFFFF; }
   .section-toggle {
     background: #FFFFFF; border: none;
-    padding: 12px 16px; cursor: pointer;
+    padding: 10px 16px; cursor: pointer;
     display: flex; align-items: center; gap: 10px;
     font-family: var(--font); text-align: left; width: 100%;
   }
@@ -181,19 +181,19 @@
   /* ── PORTFOLIO SNAPSHOT ── */
   .snapshot-grid {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 8px; padding: 14px 16px;
+    gap: 6px; padding: 10px 16px 12px;
   }
   .snap-tile {
     background: #FFFFFF;
-    border-radius: 11px; padding: 12px 13px;
+    border-radius: 11px; padding: 9px 12px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04);
   }
-  .snap-tile-label { font-size: 12px; color: var(--text2); font-weight: 500; margin-bottom: 3px; }
-  .snap-tile-value { font-size: 20px; font-weight: 800; color: var(--text1); letter-spacing: -0.5px; }
+  .snap-tile-label { font-size: 12px; color: var(--text2); font-weight: 500; margin-bottom: 2px; }
+  .snap-tile-value { font-size: 19px; font-weight: 800; color: var(--text1); letter-spacing: -0.5px; }
   .snap-tile-sub   { font-size: 10px; color: var(--text2); margin-top: 2px; }
   .snap-edit-row {
     display: flex; align-items: center;
-    padding: 10px 16px 14px; gap: 10px;
+    padding: 6px 16px 10px; gap: 10px;
   }
   .snap-edit-row .snap-edit-btn {
     background: var(--bg); border: none; border-radius: 9px;
@@ -202,13 +202,13 @@
     flex-shrink: 0;
   }
   .snap-edit-row .snap-edit-btn:active { opacity: 0.7; }
-  .key-numbers { padding: 6px 16px 14px; }
+  .key-numbers { padding: 4px 16px 8px; }
   .kn-row {
     display: flex; align-items: center; gap: 8px;
-    padding: 6px 0; border-bottom: 1px solid var(--div);
+    padding: 5px 0; border-bottom: 1px solid var(--div);
   }
   .kn-row:last-child { border-bottom: none; }
-  .kn-lbl { font-size: 14px; color: var(--text2); flex: 1; }
+  .kn-lbl { font-size: 13px; color: var(--text2); flex: 1; }
   .kn-del {
     background: rgba(0,0,0,0.04); border: none; border-radius: 7px;
     width: 28px; height: 28px; display: flex; align-items: center;
@@ -216,19 +216,19 @@
     color: var(--red); flex-shrink: 0;
   }
   .kn-del:active { opacity: 0.6; }
-  .kn-val { font-size: 14px; color: var(--text1); font-weight: 600; text-align: right; }
+  .kn-val { font-size: 13px; color: var(--text1); font-weight: 600; text-align: right; }
 
   /* ── GOAL CARDS ── */
   .goal-card {
     background: #FFFFFF;
-    margin: 8px 10px;
+    margin: 5px 10px;
     border-radius: 12px;
     box-shadow: 0 1px 6px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
     overflow: hidden;
   }
   .goal-card:last-child { margin-bottom: 12px; }
   .goal-header {
-    padding: 12px 14px 0;
+    padding: 8px 14px 0;
     display: flex; justify-content: space-between; align-items: flex-start;
   }
   .goal-name {
@@ -247,10 +247,10 @@
   .btn-icon.del { background: rgba(0,0,0,0.04); color: var(--red); font-size: 16px; }
   .btn-icon.del:active { opacity: 0.6; }
   .goal-divider { height: 1px; background: var(--div); margin: 10px 14px 0; }
-  .goal-body { padding: 6px 14px 12px; }
+  .goal-body { padding: 4px 14px 10px; }
   .info-row {
     display: flex; justify-content: space-between; align-items: flex-start;
-    padding: 4px 0;
+    padding: 3px 0;
   }
   .info-lbl { font-size: 14px; color: var(--text2); flex-shrink: 0; }
   .info-val { font-size: 14px; color: var(--text1); font-weight: 700; text-align: right; max-width: 58%; }
@@ -283,7 +283,7 @@
   /* ── TIMELINE ── */
   .tl-wrap { padding: 4px 0 4px; }
   .tl-item {
-    display: flex; gap: 0; padding: 11px 16px;
+    display: flex; gap: 0; padding: 7px 16px;
     border-bottom: 1px solid var(--div); align-items: center;
   }
   .tl-item:last-child { border-bottom: none; }
@@ -303,7 +303,7 @@
   }
   .tl-btn:active { opacity: 0.6; }
   .tl-btn.del { background: rgba(0,0,0,0.04); color: var(--red); font-size: 15px; }
-  .tl-add-row { padding: 4px 16px 12px; }
+  .tl-add-row { padding: 3px 16px 8px; }
   .tl-add-btn {
     width: 100%; background: none; border: 1.5px dashed var(--div);
     border-radius: 10px; padding: 9px; font-size: 13px;
@@ -311,8 +311,8 @@
   }
 
   /* ── CHECKLIST ── */
-  .chk-wrap { padding: 8px 16px 14px; }
-  .chk-item { display: flex; align-items: center; gap: 12px; padding: 9px 0; cursor: pointer; }
+  .chk-wrap { padding: 6px 16px 10px; }
+  .chk-item { display: flex; align-items: center; gap: 12px; padding: 5px 0; cursor: pointer; }
   .chk-item:not(:last-child) { border-bottom: 1px solid var(--div); }
   .chk-box {
     width: 22px; height: 22px; border-radius: 50%;
@@ -339,7 +339,7 @@
 
   /* ── INSURANCE CARDS ── */
   .ins-card {
-    background: #FFFFFF; margin: 8px 10px;
+    background: #FFFFFF; margin: 5px 10px;
     border-radius: 12px;
     box-shadow: 0 1px 6px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
     overflow: hidden;
@@ -360,7 +360,7 @@
   .ins-name { font-size: 16px; font-weight: 700; color: var(--text1); }
   .ins-actions { display: flex; gap: 6px; flex-shrink: 0; }
   .ins-divider { height: 1px; background: var(--div); margin: 0 14px; }
-  .ins-body { padding: 8px 14px 12px; }
+  .ins-body { padding: 5px 14px 9px; }
   .ins-row {
     display: flex; justify-content: space-between; align-items: center;
     padding: 4px 0;
@@ -389,14 +389,14 @@
     overflow: hidden;
   }
   .inv-card-header {
-    padding: 12px 14px 8px;
+    padding: 10px 14px 6px;
     display: flex; justify-content: space-between; align-items: flex-start;
   }
   .inv-card-left { flex: 1; }
   .inv-type-pill {
     display: inline-block; padding: 2px 8px; border-radius: 20px;
     font-size: 10px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.05em; margin-bottom: 4px;
+    letter-spacing: 0.05em; margin-bottom: 3px;
   }
   .inv-type-mf   { background: #D6EAFF; color: #0055B3; }
   .inv-type-stock { background: #D1F4DC; color: #1A7F37; }
@@ -407,14 +407,14 @@
   .inv-name { font-size: 16px; font-weight: 700; color: var(--text1); }
   .inv-card-actions { display: flex; gap: 6px; flex-shrink: 0; }
   .inv-divider { height: 1px; background: var(--div); margin: 0 14px; }
-  .inv-body { padding: 8px 14px 12px; }
+  .inv-body { padding: 5px 14px 9px; }
   .inv-row {
     display: flex; justify-content: space-between; align-items: center;
     padding: 3px 0;
   }
   .inv-lbl { font-size: 13px; color: var(--text2); }
   .inv-val { font-size: 13px; font-weight: 700; color: var(--text1); }
-  .inv-goals-row { padding: 6px 0 2px; }
+  .inv-goals-row { padding: 4px 0 2px; }
   .inv-goals-label { font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
   .inv-goal-tags { display: flex; flex-wrap: wrap; gap: 4px; }
   .inv-goal-tag {
@@ -427,8 +427,8 @@
   .inv-summary-bar {
     background: var(--card);
     border-radius: 14px;
-    padding: 14px 16px;
-    margin-bottom: 12px;
+    padding: 10px 16px;
+    margin-bottom: 10px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.07);
     display: grid; grid-template-columns: 1fr 1fr 1fr;
     gap: 8px;
@@ -485,7 +485,7 @@
   }
   .fi, .fs, .ft {
     width: 100%; background: var(--bg); border: 1.5px solid transparent;
-    border-radius: 11px; padding: 12px 13px; font-size: 15px;
+    border-radius: 11px; padding: 9px 12px; font-size: 15px;
     font-family: var(--font); color: var(--text1); outline: none;
     transition: border-color 0.2s;
   }
@@ -548,7 +548,7 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   .toast.err  { background: var(--red); }
-  .add-goal-row { padding: 4px 10px 12px; }
+  .add-goal-row { padding: 3px 10px 10px; }
   .btn-add-inline {
     width: 100%; background: none; border: 1.5px dashed var(--div);
     border-radius: 10px; padding: 9px;
@@ -587,13 +587,13 @@
     overflow: hidden;
   }
   .debt-header {
-    padding: 12px 14px 8px;
+    padding: 8px 14px 5px;
     display: flex; justify-content: space-between; align-items: flex-start;
   }
   .debt-type-badge {
     display: inline-block; padding: 2px 9px; border-radius: 20px;
     font-size: 10px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.05em; margin-bottom: 4px;
+    letter-spacing: 0.05em; margin-bottom: 3px;
   }
   .badge-homeloan  { background: #FFE8D9; color: #8B3A00; }
   .badge-carloan   { background: #D6EAFF; color: #0055B3; }
@@ -604,7 +604,7 @@
   .debt-name { font-size: 16px; font-weight: 700; color: var(--text1); }
   .debt-actions { display: flex; gap: 6px; flex-shrink: 0; }
   .debt-divider { height: 1px; background: var(--div); margin: 0 14px; }
-  .debt-body { padding: 8px 14px 12px; }
+  .debt-body { padding: 5px 14px 9px; }
   .debt-row {
     display: flex; justify-content: space-between; align-items: center; padding: 3px 0;
   }
@@ -860,15 +860,14 @@
 <!-- PORTFOLIO EDIT MODAL -->
 <div class="overlay" id="m-portfolio" onclick="overlayClose(event,'m-portfolio')">
   <div class="modal">
-    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title">Edit Portfolio</div><button class="m-close" onclick="closeModal('m-portfolio')" aria-label="Close">✕</button></div>
-    <div class="snap-modal-grid">
-      <div class="fg"><label class="fl">Total Wealth</label><input class="fi" id="p-val" placeholder="₹26L"/></div>
-      <div class="fg"><label class="fl">Monthly SIP</label><input class="fi" id="p-sip" placeholder="₹80,000"/></div>
+    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title">Edit Details</div><button class="m-close" onclick="closeModal('m-portfolio')" aria-label="Close">✕</button></div>
+    <p style="font-size:13px;color:var(--text2);margin:-8px 0 16px">Total Wealth and Monthly SIP are auto-calculated from your Investments &amp; Liabilities.</p>
+    <div class="fg"><label class="fl">FIRE Target</label><input class="fi" id="p-fire" placeholder="e.g. Age 42 / 2033"/></div>
+    <div class="f2">
       <div class="fg"><label class="fl">Loan EMI</label><input class="fi" id="p-emi" placeholder="₹53,433"/></div>
       <div class="fg"><label class="fl">Loan Closes</label><input class="fi" id="p-loan" placeholder="2027–28"/></div>
-      <div class="fg"><label class="fl">Post-Loan SIP</label><input class="fi" id="p-postsip" placeholder="₹1.33L/mo"/></div>
-      <div class="fg"><label class="fl">FIRE Target</label><input class="fi" id="p-fire" placeholder="Age 42 / 2033"/></div>
     </div>
+    <div class="fg"><label class="fl">Post-Loan SIP (planned)</label><input class="fi" id="p-postsip" placeholder="₹1.33L/mo"/></div>
     <div class="m-actions">
       <button class="btn-cancel" onclick="closeModal('m-portfolio')">Cancel</button>
       <button class="btn-save" onclick="savePortfolio()">Save</button>
@@ -1059,6 +1058,79 @@ let CL = JSON.parse(localStorage.getItem('cl') || JSON.stringify([
   "Update portfolio value in snapshot 📊"
 ]));
 
+// ── INR PARSER & FORMATTER ────────────────────────────────────────────────
+// Parses Indian currency strings → raw number (or null if unparseable)
+function parseINR(str) {
+  if (!str) return null;
+  const s = String(str).replace(/₹/g,'').replace(/,/g,'').trim();
+  // Handle ranges like "25–30 Lakhs" → average
+  const rangeMatch = s.match(/^([\d.]+)[–\-]([\d.]+)\s*(L|Lakh|Lakhs|Cr|Crore|Crores|k|K)?/i);
+  if (rangeMatch) {
+    const avg = (parseFloat(rangeMatch[1]) + parseFloat(rangeMatch[2])) / 2;
+    const unit = (rangeMatch[3]||'').toLowerCase();
+    if (unit.startsWith('cr')) return avg * 1e7;
+    if (unit.startsWith('l') || unit.startsWith('lak')) return avg * 1e5;
+    if (unit === 'k') return avg * 1e3;
+    return avg;
+  }
+  // Percentage string - skip
+  if (s.includes('%')) return null;
+  // Normal value with optional unit
+  const m = s.match(/^([\d.]+)\s*(L|Lakh|Lakhs|Cr|Crore|Crores|k|K)?/i);
+  if (!m) return null;
+  const val = parseFloat(m[1]);
+  const unit = (m[2]||'').toLowerCase();
+  if (unit.startsWith('cr')) return val * 1e7;
+  if (unit.startsWith('l') || unit.startsWith('lak')) return val * 1e5;
+  if (unit === 'k') return val * 1e3;
+  return val;
+}
+
+// Formats a raw number into compact Indian notation
+function fmtINR(n) {
+  if (!n || isNaN(n)) return '—';
+  if (n >= 1e7) return '₹' + (n/1e7).toFixed(n%1e7===0?0:2).replace(/\.?0+$/,'') + ' Cr';
+  if (n >= 1e5) return '₹' + (n/1e5).toFixed(n%1e5===0?0:1).replace(/\.?0+$/,'') + 'L';
+  if (n >= 1e3) return '₹' + Math.round(n).toLocaleString('en-IN');
+  return '₹' + Math.round(n);
+}
+
+// ── COMPUTED METRICS (auto-synced) ───────────────────────────────────────
+function calcTotalAssets() {
+  return investments.reduce((sum, inv) => {
+    const v = parseINR(inv.currentValue);
+    return sum + (v || 0);
+  }, 0);
+}
+
+function calcTotalLiabilities() {
+  return debts.reduce((sum, d) => {
+    const v = parseINR(d.outstanding);
+    return sum + (v || 0);
+  }, 0);
+}
+
+function calcNetWorth() {
+  return calcTotalAssets() - calcTotalLiabilities();
+}
+
+function calcMonthlySIP() {
+  return investments.reduce((sum, inv) => {
+    const v = parseINR(inv.sip);
+    return sum + (v || 0);
+  }, 0);
+}
+
+function calcActiveGoals() {
+  return goals.filter(g => g.status !== 'complete').length;
+}
+
+function calcGoalsByStatus() {
+  const counts = {};
+  goals.forEach(g => { counts[g.status] = (counts[g.status]||0) + 1; });
+  return counts;
+}
+
 const SC = {
   'on-track':    {l:'On Track',    c:'pill-green'},
   'in-progress': {l:'In Progress', c:'pill-orange'},
@@ -1185,8 +1257,10 @@ function renderAll() {
 
 function renderHome() {
   const el = document.getElementById('home-content');
+  const netWorth = calcNetWorth();
+  const meta = netWorth > 0 ? fmtINR(netWorth) : 'Snapshot';
   let html = '';
-  html += renderSection({id:'portfolio', emoji:'📊', label:'Portfolio Snapshot', meta: pf.value, body:renderPortfolioBody()});
+  html += renderSection({id:'portfolio', emoji:'📊', label:'Portfolio Snapshot', meta, body:renderPortfolioBody()});
   el.innerHTML = html;
 }
 
@@ -1222,12 +1296,10 @@ function renderGoalsPage() {
 function renderInvestmentsPage() {
   const el = document.getElementById('investments-content');
 
-  // Summary bar
-  const totalSIP = investments.reduce((s, inv) => {
-    const n = parseInt((inv.sip||'').replace(/[^0-9]/g,'')) || 0;
-    return s + n;
-  }, 0);
-  const sipLabel = totalSIP >= 100000 ? `₹${(totalSIP/100000).toFixed(1)}L` : totalSIP >= 1000 ? `₹${(totalSIP/1000).toFixed(0)}k` : `₹${totalSIP}`;
+  const totalSIP    = calcMonthlySIP();
+  const totalAssets = calcTotalAssets();
+  const sipLabel    = fmtINR(totalSIP);
+  const assetsLabel = fmtINR(totalAssets);
 
   let html = `<div class="inv-summary-bar">
     <div class="inv-sum-item">
@@ -1239,8 +1311,8 @@ function renderInvestmentsPage() {
       <div class="inv-sum-lbl">Monthly SIP</div>
     </div>
     <div class="inv-sum-item">
-      <div class="inv-sum-val">${pf.value}</div>
-      <div class="inv-sum-lbl">Portfolio</div>
+      <div class="inv-sum-val">${assetsLabel}</div>
+      <div class="inv-sum-lbl">Total Value</div>
     </div>
   </div>`;
 
@@ -1577,32 +1649,72 @@ function delKnRow(i) {
 
 // ── PORTFOLIO BODY ─────────────────────────────────────────────────────────
 function renderPortfolioBody() {
+  const totalAssets  = calcTotalAssets();
+  const totalLiab    = calcTotalLiabilities();
+  const netWorth     = calcNetWorth();
+  const monthlySIP   = calcMonthlySIP();
+  const activeGoals  = calcActiveGoals();
+  const statusCounts = calcGoalsByStatus();
+
+  // Status breakdown chips
+  const statusChips = Object.entries(statusCounts).map(([s,n]) => {
+    const sc = SC[s] || {l:s, c:'pill-orange'};
+    return `<span class="pill ${sc.c}" style="font-size:11px;padding:3px 9px">${sc.l} <strong>${n}</strong></span>`;
+  }).join('');
+
   return `
+  <!-- Net Worth Summary (clean, no background color) -->
+  <div style="padding:12px 16px 0">
+    <div style="border-radius:13px;border:1.5px solid var(--div);background:var(--card);overflow:hidden">
+      <div style="padding:12px 14px 10px;border-bottom:1px solid var(--div)">
+        <div style="font-size:10.5px;font-weight:700;color:var(--text2);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:3px">Net Worth</div>
+        <div style="font-size:26px;font-weight:900;letter-spacing:-0.8px;color:${netWorth>=0?'var(--green)':'var(--red)'}">${netWorth<0?'−':''}${fmtINR(Math.abs(netWorth))}</div>
+      </div>
+      <div style="display:flex">
+        <div style="flex:1;padding:10px 14px">
+          <div style="font-size:10px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px">Total Assets</div>
+          <div style="font-size:16px;font-weight:800;color:var(--text1)">${fmtINR(totalAssets)}</div>
+        </div>
+        <div style="width:1px;background:var(--div)"></div>
+        <div style="flex:1;padding:10px 14px">
+          <div style="font-size:10px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px">Liabilities</div>
+          <div style="font-size:16px;font-weight:800;color:${totalLiab>0?'var(--red)':'var(--text1)'}">${fmtINR(totalLiab)||'₹0'}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2×2 Grid tiles -->
   <div class="snapshot-grid">
     <div class="snap-tile">
-      <div class="snap-tile-label">Total Wealth</div>
-      <div class="snap-tile-value">${pf.value}</div>
-      <div class="snap-tile-sub">Assets</div>
-    </div>
-    <div class="snap-tile">
       <div class="snap-tile-label">Monthly SIP</div>
-      <div class="snap-tile-value">${pf.sip}</div>
-      <div class="snap-tile-sub">Active</div>
+      <div class="snap-tile-value">${fmtINR(monthlySIP)}</div>
+      <div class="snap-tile-sub">Auto from investments</div>
     </div>
     <div class="snap-tile">
       <div class="snap-tile-label">Active Goals</div>
-      <div class="snap-tile-value">${goals.length}</div>
-      <div class="snap-tile-sub">Being tracked</div>
+      <div class="snap-tile-value">${activeGoals}</div>
+      <div class="snap-tile-sub">${goals.length - activeGoals} completed</div>
+    </div>
+    <div class="snap-tile">
+      <div class="snap-tile-label">Investments</div>
+      <div class="snap-tile-value">${investments.length}</div>
+      <div class="snap-tile-sub">Instruments</div>
     </div>
     <div class="snap-tile">
       <div class="snap-tile-label">FIRE Target</div>
-      <div class="snap-tile-value">${pf.fire}</div>
+      <div class="snap-tile-value" style="font-size:15px">${pf.fire||'—'}</div>
       <div class="snap-tile-sub">Retirement</div>
     </div>
   </div>
+
+  <!-- Goals status breakdown -->
+  ${statusChips ? `<div style="padding:0 16px 10px;display:flex;flex-wrap:wrap;gap:6px">${statusChips}</div>` : ''}
+
+  <!-- Key numbers -->
   <div class="key-numbers">${renderKnRows()}</div>
   <div class="snap-edit-row">
-    <button class="snap-edit-btn" onclick="openPortfolioEdit()">✏️ Edit Snapshot</button>
+    <button class="snap-edit-btn" onclick="openPortfolioEdit()">Edit Details</button>
     <button class="snap-edit-btn" onclick="openAddKnRow()" style="margin-left:8px">Add Row</button>
   </div>`;
 }
@@ -1849,32 +1961,30 @@ function toggleChk(i) {
 
 // ── PORTFOLIO EDIT ─────────────────────────────────────────────────────────
 function openPortfolioEdit() {
-  document.getElementById('p-val').value    = pf.value;
-  document.getElementById('p-sip').value    = pf.sip;
-  document.getElementById('p-emi').value    = pf.emi;
-  document.getElementById('p-loan').value   = pf.loan;
-  document.getElementById('p-postsip').value= pf.postsip;
-  document.getElementById('p-fire').value   = pf.fire;
+  document.getElementById('p-fire').value    = pf.fire    || '';
+  document.getElementById('p-emi').value     = pf.emi     || '';
+  document.getElementById('p-loan').value    = pf.loan    || '';
+  document.getElementById('p-postsip').value = pf.postsip || '';
   openModal('m-portfolio');
 }
 
 function savePortfolio() {
   pf = {
-    value:   document.getElementById('p-val').value.trim()     || pf.value,
-    sip:     document.getElementById('p-sip').value.trim()     || pf.sip,
+    ...pf,
+    fire:    document.getElementById('p-fire').value.trim()    || pf.fire,
     emi:     document.getElementById('p-emi').value.trim()     || pf.emi,
     loan:    document.getElementById('p-loan').value.trim()    || pf.loan,
     postsip: document.getElementById('p-postsip').value.trim() || pf.postsip,
-    fire:    document.getElementById('p-fire').value.trim()    || pf.fire
   };
   localStorage.setItem('pf', JSON.stringify(pf));
+  // Sync key number rows if they match the default labels
   if (knRows[0] && knRows[0].l === 'Personal Loan EMI') knRows[0].v = pf.emi + ' / mo';
   if (knRows[1] && knRows[1].l === 'Loan Closes')       knRows[1].v = pf.loan + ' 🎉';
   if (knRows[2] && knRows[2].l === 'Post-Loan SIP')     knRows[2].v = pf.postsip;
   localStorage.setItem('knr', JSON.stringify(knRows));
   closeModal('m-portfolio');
   renderAll();
-  toast('Portfolio updated ✓');
+  toast('Details updated ✓');
 }
 
 // ── GOAL CRUD ───────────────────────────────────────────────────────────────
