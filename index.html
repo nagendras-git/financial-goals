@@ -24,7 +24,6 @@
     --font: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
   }
 
-  /* ── DARK THEME ── */
   body.dark {
     --bg: #1C1C1E;
     --card: #2C2C2E;
@@ -40,12 +39,14 @@
   }
   body.dark { background: #000000; }
   body.dark .nav { background: rgba(28,28,30,0.96); }
+  body.dark .bottom-nav { background: rgba(28,28,30,0.96); border-top-color: rgba(255,255,255,0.08); }
   body.dark .section { background: #1C1C1E; }
   body.dark .section-toggle,
   body.dark .section-toggle-wrap { background: #2C2C2E; }
   body.dark .section-toggle:active { background: rgba(255,255,255,0.05); }
   body.dark .goal-card,
   body.dark .ins-card,
+  body.dark .inv-card,
   body.dark .snap-tile { background: #2C2C2E; box-shadow: none; }
   body.dark .note-box { background: #1A2240; border-left-color: #2D4A8A; color: #A0B4E0; }
   body.dark .pill-green  { background: #0D3320; color: #30D158; }
@@ -59,18 +60,24 @@
   body.dark .fi, body.dark .fs, body.dark .ft { background: #3A3A3C; color: var(--text1); }
   body.dark .modal { background: #2C2C2E; }
   body.dark .btn-cancel { background: #3A3A3C; color: var(--text1); }
-  body.dark .ins-type-badge { }
   body.dark .overlay { background: rgba(0,0,0,0.7); }
-
+  body.dark .inv-type-pill { }
+  body.dark .tab-label { color: var(--text2); }
+  body.dark .tab-btn.active .tab-label { color: var(--blue); }
+  body.dark .tab-icon { filter: none; }
+  body.dark .inv-goal-tag { background: #002060; color: #409CFF; }
+  body.dark .section-toggle-wrap { background: #2C2C2E; }
+  body.dark .debt-card { background: #2C2C2E; box-shadow: none; }
+  body.dark .name-edit-btn { color: var(--blue); }
 
   body {
     font-family: var(--font);
     background: #EBEBF0;
     min-height: 100vh;
-    padding-bottom: 40px;
+    padding-bottom: 80px;
   }
 
-  /* ── NAV ── */
+  /* ── TOP NAV ── */
   .nav {
     position: sticky; top: 0; z-index: 100;
     background: rgba(235,235,240,0.96);
@@ -92,7 +99,6 @@
     cursor: pointer;
   }
   .btn-add:active { opacity: 0.8; transform: scale(0.97); }
-
   .theme-toggle {
     background: var(--card); border: 1.5px solid var(--div);
     border-radius: 20px; width: 36px; height: 36px;
@@ -103,10 +109,38 @@
   }
   .theme-toggle:active { transform: scale(0.9); }
 
-  /* ── MAIN ── */
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(235,235,240,0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(0,0,0,0.09);
+    display: flex; justify-content: space-around; align-items: center;
+    padding: 8px 0 20px;
+    max-width: 100%;
+  }
+  .tab-btn {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; gap: 3px;
+    background: none; border: none; cursor: pointer;
+    padding: 4px 8px;
+    font-family: var(--font);
+    transition: opacity 0.15s;
+  }
+  .tab-btn:active { opacity: 0.6; }
+  .tab-icon { font-size: 22px; line-height: 1; }
+  .tab-label {
+    font-size: 10px; font-weight: 500; color: var(--text2);
+    letter-spacing: 0.01em;
+  }
+  .tab-btn.active .tab-label { color: var(--blue); font-weight: 700; }
+  .tab-btn.active .tab-icon { filter: none; }
+
+  /* ── MAIN CONTENT ── */
   .content { max-width: 480px; margin: 0 auto; padding: 14px 16px 20px; }
 
-  /* ── ACCORDION SECTION ── */
+  /* ── SECTION ACCORDION ── */
   .section {
     background: #F5F6FA;
     border-radius: 16px;
@@ -114,61 +148,37 @@
     box-shadow: 0 1px 4px rgba(0,0,0,0.07);
     overflow: hidden;
   }
-
-  /* Section toggle — no border accent */
-
   .section-toggle-wrap { background: #FFFFFF; }
   .section-toggle {
     background: #FFFFFF; border: none;
-    padding: 12px 16px 12px 4px; cursor: pointer;
+    padding: 12px 16px; cursor: pointer;
     display: flex; align-items: center; gap: 10px;
     font-family: var(--font); text-align: left; width: 100%;
   }
   .section-toggle:active { background: rgba(0,0,0,0.02); }
-
   .section-emoji { font-size: 18px; flex-shrink: 0; }
-
   .section-label {
-    flex: 1;
-    font-size: 16px; font-weight: 700;
+    flex: 1; font-size: 16px; font-weight: 700;
     color: var(--text1); letter-spacing: -0.1px;
   }
-
   .section-meta {
     font-size: 13px; color: var(--text1);
-    font-weight: 700; margin-right: 6px;
-    flex-shrink: 0;
+    font-weight: 700; margin-right: 6px; flex-shrink: 0;
   }
-
-  .sec-move-btn {
-    background: none; border: none; font-size: 13px; font-weight: 700;
-    color: var(--text2); cursor: pointer; padding: 0 5px;
-    line-height: 1; flex-shrink: 0;
-  }
-  .sec-move-btn:active { color: var(--blue); }
-
   .section-chevron {
     font-size: 12px; color: var(--text2);
     transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
     flex-shrink: 0;
   }
   .section.open .section-chevron { transform: rotate(180deg); }
-
   .section-body {
-    max-height: 0;
-    overflow: hidden;
+    max-height: 0; overflow: hidden;
     transition: max-height 0.32s cubic-bezier(0.4,0,0.2,1);
   }
   .section.open .section-body { max-height: 3000px; }
+  .section-divider { height: 1px; background: var(--div); margin: 0; opacity: 0.6; }
 
-  .section-divider {
-    height: 1px;
-    background: var(--div);
-    margin: 0;
-    opacity: 0.6;
-  }
-
-  /* ── PORTFOLIO SNAPSHOT BODY ── */
+  /* ── PORTFOLIO SNAPSHOT ── */
   .snapshot-grid {
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 8px; padding: 14px 16px;
@@ -181,7 +191,6 @@
   .snap-tile-label { font-size: 12px; color: var(--text2); font-weight: 500; margin-bottom: 3px; }
   .snap-tile-value { font-size: 20px; font-weight: 800; color: var(--text1); letter-spacing: -0.5px; }
   .snap-tile-sub   { font-size: 10px; color: var(--text2); margin-top: 2px; }
-
   .snap-edit-row {
     display: flex; align-items: center;
     padding: 10px 16px 14px; gap: 10px;
@@ -193,7 +202,6 @@
     flex-shrink: 0;
   }
   .snap-edit-row .snap-edit-btn:active { opacity: 0.7; }
-
   .key-numbers { padding: 6px 16px 14px; }
   .kn-row {
     display: flex; align-items: center; gap: 8px;
@@ -210,11 +218,7 @@
   .kn-del:active { opacity: 0.6; }
   .kn-val { font-size: 14px; color: var(--text1); font-weight: 600; text-align: right; }
 
-
-
-
-
-  /* ── GOAL CARDS inside sections ── */
+  /* ── GOAL CARDS ── */
   .goal-card {
     background: #FFFFFF;
     margin: 8px 10px;
@@ -223,8 +227,6 @@
     overflow: hidden;
   }
   .goal-card:last-child { margin-bottom: 12px; }
-
-
   .goal-header {
     padding: 12px 14px 0;
     display: flex; justify-content: space-between; align-items: flex-start;
@@ -244,18 +246,14 @@
   .btn-icon:active { opacity: 0.6; }
   .btn-icon.del { background: rgba(0,0,0,0.04); color: var(--red); font-size: 16px; }
   .btn-icon.del:active { opacity: 0.6; }
-
   .goal-divider { height: 1px; background: var(--div); margin: 10px 14px 0; }
-
   .goal-body { padding: 6px 14px 12px; }
   .info-row {
     display: flex; justify-content: space-between; align-items: flex-start;
     padding: 4px 0;
   }
   .info-lbl { font-size: 14px; color: var(--text2); flex-shrink: 0; }
-  .info-val { font-size: 14px; color: var(--text1); font-weight: 500; text-align: right; max-width: 58%; }
-  .info-val { font-weight: 700; }
-
+  .info-val { font-size: 14px; color: var(--text1); font-weight: 700; text-align: right; max-width: 58%; }
   .funds-label {
     font-size: 11px; font-weight: 700; color: var(--text2);
     text-transform: uppercase; letter-spacing: 0.07em;
@@ -264,11 +262,9 @@
   .fund-row { display: flex; justify-content: space-between; padding: 2px 0; }
   .fund-name { font-size: 14px; color: var(--text1); }
   .fund-amt  { font-size: 14px; color: var(--text1); font-weight: 600; }
-
   .note-box {
     margin-top: 8px; padding: 8px 10px;
-    background: #EFF3FF;
-    border-left: 3px solid #B0C4FF;
+    background: #EFF3FF; border-left: 3px solid #B0C4FF;
     border-radius: 0 8px 8px 0;
     font-size: 14px; color: var(--text3); line-height: 1.5;
   }
@@ -284,28 +280,21 @@
   .pill-red    { background: #FFD9D9; color: #B30000; }
   .pill-purple { background: #F0E0FF; color: #7B2FBE; }
 
-
-  /* ── TIMELINE inside section ── */
+  /* ── TIMELINE ── */
   .tl-wrap { padding: 4px 0 4px; }
   .tl-item {
     display: flex; gap: 0; padding: 11px 16px;
-    border-bottom: 1px solid var(--div);
-    align-items: center;
+    border-bottom: 1px solid var(--div); align-items: center;
   }
   .tl-item:last-child { border-bottom: none; }
-  .tl-left { display: none; }
-  .tl-yr   {
+  .tl-yr {
     font-size: 12px; font-weight: 800; color: white;
     white-space: nowrap; width: 72px; min-width: 72px;
     text-align: center; flex-shrink: 0;
     background: var(--text2); border-radius: 20px;
-    padding: 4px 0; letter-spacing: -0.2px;
-    margin-right: 14px;
+    padding: 4px 0; letter-spacing: -0.2px; margin-right: 14px;
   }
-  .tl-line { display: none; }
-
-  .tl-ev   { font-size: 14px; color: var(--text1); line-height: 1.5; flex: 1; }
-
+  .tl-ev { font-size: 14px; color: var(--text1); line-height: 1.5; flex: 1; }
   .tl-actions { display: flex; gap: 6px; flex-shrink: 0; margin-left: 10px; }
   .tl-btn {
     background: rgba(0,0,0,0.04); border: none; border-radius: 7px;
@@ -314,7 +303,6 @@
   }
   .tl-btn:active { opacity: 0.6; }
   .tl-btn.del { background: rgba(0,0,0,0.04); color: var(--red); font-size: 15px; }
-  .tl-btn.del:active { opacity: 0.6; }
   .tl-add-row { padding: 4px 16px 12px; }
   .tl-add-btn {
     width: 100%; background: none; border: 1.5px dashed var(--div);
@@ -322,7 +310,7 @@
     color: var(--blue); font-weight: 600; font-family: var(--font); cursor: pointer;
   }
 
-  /* ── CHECKLIST inside section ── */
+  /* ── CHECKLIST ── */
   .chk-wrap { padding: 8px 16px 14px; }
   .chk-item { display: flex; align-items: center; gap: 12px; padding: 9px 0; cursor: pointer; }
   .chk-item:not(:last-child) { border-bottom: 1px solid var(--div); }
@@ -332,7 +320,7 @@
     display: flex; align-items: center; justify-content: center;
     transition: all 0.2s; color: transparent; font-size: 12px;
   }
-  .chk-box.on { background: var(--green); border-color: var(--green); color: white; font-size: 12px; }
+  .chk-box.on { background: var(--green); border-color: var(--green); color: white; }
   .chk-txt { font-size: 14px; color: var(--text1); flex: 1; line-height: 1.4; }
   .chk-txt.done { text-decoration: line-through; color: var(--text2); }
   .chk-del {
@@ -380,15 +368,78 @@
   .ins-lbl { font-size: 14px; color: var(--text2); }
   .ins-val { font-size: 14px; font-weight: 700; color: var(--text1); }
 
-  /* ── DRAG TO REORDER ── */
-  .drag-handle {
-    cursor: grab; font-size: 16px; color: var(--text2);
-    padding: 4px 6px 4px 0; flex-shrink: 0; opacity: 0.4;
-    user-select: none;
+  /* ── INVESTMENT CARDS ── */
+  .inv-section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 16px 6px;
   }
-  .drag-handle:active { cursor: grabbing; }
-  .dragging { opacity: 0.4; transform: scale(0.98); }
-  .drag-over { border-top: 2px solid var(--blue); }
+  .inv-section-title {
+    font-size: 13px; font-weight: 700; color: var(--text2);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .inv-section-add {
+    background: none; border: none; color: var(--blue);
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    font-family: var(--font); padding: 4px 0;
+  }
+  .inv-card {
+    background: #FFFFFF; margin: 4px 10px 8px;
+    border-radius: 12px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
+    overflow: hidden;
+  }
+  .inv-card-header {
+    padding: 12px 14px 8px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .inv-card-left { flex: 1; }
+  .inv-type-pill {
+    display: inline-block; padding: 2px 8px; border-radius: 20px;
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; margin-bottom: 4px;
+  }
+  .inv-type-mf   { background: #D6EAFF; color: #0055B3; }
+  .inv-type-stock { background: #D1F4DC; color: #1A7F37; }
+  .inv-type-etf  { background: #FFF0D9; color: #B25000; }
+  .inv-type-re   { background: #FFE8D9; color: #8B3A00; }
+  .inv-type-gold { background: #FFF8D0; color: #7A5900; }
+  .inv-type-other { background: #F0E0FF; color: #7B2FBE; }
+  .inv-name { font-size: 16px; font-weight: 700; color: var(--text1); }
+  .inv-card-actions { display: flex; gap: 6px; flex-shrink: 0; }
+  .inv-divider { height: 1px; background: var(--div); margin: 0 14px; }
+  .inv-body { padding: 8px 14px 12px; }
+  .inv-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 3px 0;
+  }
+  .inv-lbl { font-size: 13px; color: var(--text2); }
+  .inv-val { font-size: 13px; font-weight: 700; color: var(--text1); }
+  .inv-goals-row { padding: 6px 0 2px; }
+  .inv-goals-label { font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .inv-goal-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .inv-goal-tag {
+    background: #D6EAFF; color: #0055B3;
+    padding: 2px 8px; border-radius: 12px;
+    font-size: 11px; font-weight: 600;
+  }
+
+  /* ── INVESTMENTS PAGE HEADER ── */
+  .inv-summary-bar {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+  .inv-sum-item { text-align: center; }
+  .inv-sum-val { font-size: 17px; font-weight: 800; color: var(--text1); letter-spacing: -0.3px; }
+  .inv-sum-lbl { font-size: 10px; color: var(--text2); margin-top: 2px; }
+
+  /* ── PAGE TABS ── */
+  .tab-page { display: none; }
+  .tab-page.active { display: block; }
 
   /* ── MODAL ── */
   .overlay {
@@ -398,10 +449,31 @@
   .overlay.open { display: flex; }
   .modal {
     background: var(--card); border-radius: 24px 24px 0 0;
-    padding: 12px 20px 48px; width: 100%; max-width: 480px;
-    max-height: 92vh; overflow-y: auto;
+    padding: 20px 20px 48px; width: 100%; max-width: 480px;
+    max-height: 92vh; overflow-y: auto; position: relative;
     animation: up 0.3s cubic-bezier(0.32,0.72,0,1);
+    /* Thin overlay scrollbar — doesn't push content or cut border-radius */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
   }
+  /* Webkit: hidden track, thumb appears only when hovering or scrolling */
+  .modal::-webkit-scrollbar { width: 4px; }
+  .modal::-webkit-scrollbar-track { background: transparent; }
+  .modal::-webkit-scrollbar-thumb {
+    background: transparent; border-radius: 4px;
+    transition: background 0.25s;
+  }
+  .modal:hover::-webkit-scrollbar-thumb,
+  .modal.is-scrolling::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.2);
+  }
+  body.dark .modal:hover::-webkit-scrollbar-thumb,
+  body.dark .modal.is-scrolling::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.22);
+  }
+  /* Firefox */
+  .modal:hover { scrollbar-color: rgba(0,0,0,0.2) transparent; }
+  body.dark .modal:hover { scrollbar-color: rgba(255,255,255,0.22) transparent; }
   @keyframes up { from{transform:translateY(100%)} to{transform:translateY(0)} }
   .m-handle { width: 36px; height: 4px; background: var(--div); border-radius: 2px; margin: 0 auto 16px; }
   .m-title  { font-size: 20px; font-weight: 800; color: var(--text1); margin-bottom: 20px; letter-spacing: -0.3px; }
@@ -446,9 +518,17 @@
     color: white; font-family: var(--font); cursor: pointer;
   }
   .btn-save:active { opacity: 0.85; }
-
-  /* ── PORTFOLIO EDIT MODAL ── */
   .snap-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* Goal mapping checkboxes */
+  .goal-map-list { display: flex; flex-direction: column; gap: 6px; }
+  .goal-map-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; background: var(--bg); border-radius: 10px;
+    cursor: pointer;
+  }
+  .goal-map-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--blue); flex-shrink: 0; }
+  .goal-map-item-label { font-size: 14px; color: var(--text1); flex: 1; }
 
   /* ── MISC ── */
   .spinner {
@@ -459,9 +539,8 @@
   @keyframes spin { to{transform:rotate(360deg)} }
   .loading { text-align: center; padding: 30px 20px; color: var(--text2); }
   .empty-goals { text-align: center; padding: 20px; color: var(--text2); font-size: 13px; }
-
   .toast {
-    position: fixed; bottom: 32px; left: 50%;
+    position: fixed; bottom: 90px; left: 50%;
     transform: translateX(-50%) translateY(16px);
     background: #1C1C1E; color: white; padding: 10px 22px;
     border-radius: 22px; font-size: 13.5px; font-weight: 500;
@@ -469,10 +548,7 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   .toast.err  { background: var(--red); }
-
-  .add-goal-row {
-    padding: 4px 10px 12px;
-  }
+  .add-goal-row { padding: 4px 10px 12px; }
   .btn-add-inline {
     width: 100%; background: none; border: 1.5px dashed var(--div);
     border-radius: 10px; padding: 9px;
@@ -480,32 +556,179 @@
     font-family: var(--font); cursor: pointer;
   }
   .btn-add-inline:active { opacity: 0.7; }
+
+  /* More page */
+  .more-section {
+    background: var(--card); border-radius: 14px;
+    margin-bottom: 12px; overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+  .more-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px; border-bottom: 1px solid var(--div);
+    cursor: pointer;
+  }
+  .more-row:last-child { border-bottom: none; }
+  .more-row:active { background: rgba(0,0,0,0.03); }
+  .more-icon { font-size: 20px; width: 32px; text-align: center; flex-shrink: 0; }
+  .more-lbl { font-size: 15px; color: var(--text1); font-weight: 500; flex: 1; }
+  .more-arrow { font-size: 13px; color: var(--text2); }
+  .more-section-title {
+    font-size: 11px; font-weight: 700; color: var(--text2);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 16px 16px 6px;
+  }
+
+  /* ── DEBT / LIABILITY CARDS ── */
+  .debt-card {
+    background: #FFFFFF; margin: 4px 0 8px;
+    border-radius: 12px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
+    overflow: hidden;
+  }
+  .debt-header {
+    padding: 12px 14px 8px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .debt-type-badge {
+    display: inline-block; padding: 2px 9px; border-radius: 20px;
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; margin-bottom: 4px;
+  }
+  .badge-homeloan  { background: #FFE8D9; color: #8B3A00; }
+  .badge-carloan   { background: #D6EAFF; color: #0055B3; }
+  .badge-personal  { background: #FFD9D9; color: #B30000; }
+  .badge-credit    { background: #F0E0FF; color: #7B2FBE; }
+  .badge-education { background: #D1F4DC; color: #1A7F37; }
+  .badge-other-debt { background: #F5F5F5; color: #555; }
+  .debt-name { font-size: 16px; font-weight: 700; color: var(--text1); }
+  .debt-actions { display: flex; gap: 6px; flex-shrink: 0; }
+  .debt-divider { height: 1px; background: var(--div); margin: 0 14px; }
+  .debt-body { padding: 8px 14px 12px; }
+  .debt-row {
+    display: flex; justify-content: space-between; align-items: center; padding: 3px 0;
+  }
+  .debt-lbl { font-size: 13px; color: var(--text2); }
+  .debt-val { font-size: 13px; font-weight: 700; color: var(--text1); }
+  .debt-val.red { color: var(--red); }
+
+  /* ── NAME EDIT ── */
+  .nav-title-wrap { display: flex; align-items: center; gap: 6px; }
+  .name-edit-btn {
+    background: none; border: none; font-size: 13px; cursor: pointer;
+    color: var(--blue); padding: 2px 4px; line-height: 1; opacity: 0.7;
+  }
+  .name-edit-btn:active { opacity: 1; }
+
+  /* ── MODAL HEADER WITH CLOSE ── */
+  .m-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px; padding-top: 4px;
+  }
+  .m-header .m-handle {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    top: 12px; width: 36px; height: 4px;
+    background: var(--div); border-radius: 2px; margin: 0;
+  }
+  .m-header .m-title { margin-bottom: 0; flex: 1; }
+  .m-close {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--bg); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; color: var(--text2); flex-shrink: 0;
+    line-height: 1; transition: background 0.15s, color 0.15s;
+    margin-left: 10px;
+  }
+  .m-close:active { background: var(--div); color: var(--text1); }
+  body.dark .m-close { background: #3A3A3C; color: var(--text2); }
+
+  /* ── INVESTMENT TYPE SELECTOR (pill buttons) ── */
+  .inv-type-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    margin-bottom: 4px;
+  }
+  .inv-type-opt {
+    border: 1.5px solid var(--div); border-radius: 10px;
+    padding: 9px 6px; text-align: center; cursor: pointer;
+    background: var(--bg); font-family: var(--font);
+    transition: all 0.15s;
+  }
+  .inv-type-opt .ito-icon { font-size: 20px; display: block; margin-bottom: 3px; }
+  .inv-type-opt .ito-lbl  { font-size: 11px; font-weight: 600; color: var(--text2); }
+  .inv-type-opt.selected  { border-color: var(--blue); background: #EFF6FF; }
+  .inv-type-opt.selected .ito-lbl { color: var(--blue); }
+  body.dark .inv-type-opt { background: #3A3A3C; border-color: #48484A; }
+  body.dark .inv-type-opt.selected { background: #002060; border-color: var(--blue); }
 </style>
 </head>
 <body>
 
+<!-- TOP NAV -->
 <div class="nav">
   <div class="nav-inner">
     <div>
-      <div class="nav-title">📋 Investment Goals</div>
+      <div class="nav-title-wrap">
+        <div class="nav-title" id="nav-title">📋 Investment Goals</div>
+        <button class="name-edit-btn" id="name-edit-btn" onclick="openNameModal()" title="Set your name">✏️</button>
+      </div>
       <div class="nav-sub" id="nav-sub">Loading…</div>
     </div>
     <div style="display:flex;align-items:center;gap:8px">
       <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
-      <button class="btn-add" onclick="openAddModal()">Add Goal</button>
+      <button class="btn-add" id="nav-add-btn" onclick="handleNavAdd()">Add Goal</button>
     </div>
   </div>
 </div>
 
-<div class="content" id="main-content">
-  <div class="loading"><div class="spinner"></div>Loading…</div>
+<!-- TAB PAGES -->
+<div class="content">
+
+  <!-- HOME TAB -->
+  <div class="tab-page active" id="page-home">
+    <div id="home-content"><div class="loading"><div class="spinner"></div>Loading…</div></div>
+  </div>
+
+  <!-- GOALS TAB -->
+  <div class="tab-page" id="page-goals">
+    <div id="goals-content"><div class="loading"><div class="spinner"></div>Loading…</div></div>
+  </div>
+
+  <!-- INVESTMENTS TAB -->
+  <div class="tab-page" id="page-investments">
+    <div id="investments-content"><div class="loading"><div class="spinner"></div>Loading…</div></div>
+  </div>
+
+  <!-- MORE TAB -->
+  <div class="tab-page" id="page-more">
+    <div id="more-content"></div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="tab-btn active" id="tab-home" onclick="switchTab('home')">
+    <span class="tab-icon">🏠</span>
+    <span class="tab-label">Home</span>
+  </button>
+  <button class="tab-btn" id="tab-goals" onclick="switchTab('goals')">
+    <span class="tab-icon">🎯</span>
+    <span class="tab-label">Goals</span>
+  </button>
+  <button class="tab-btn" id="tab-investments" onclick="switchTab('investments')">
+    <span class="tab-icon">📈</span>
+    <span class="tab-label">Investments</span>
+  </button>
+  <button class="tab-btn" id="tab-more" onclick="switchTab('more')">
+    <span class="tab-icon">⋯</span>
+    <span class="tab-label">More</span>
+  </button>
 </div>
 
 <!-- INSURANCE MODAL -->
 <div class="overlay" id="m-insurance" onclick="overlayClose(event,'m-insurance')">
   <div class="modal">
-    <div class="m-handle"></div>
-    <div class="m-title" id="m-ins-title">Add Insurance</div>
+    <div class="m-header"><div class="m-handle" style="margin:0"></div><div class="m-title" id="m-ins-title">Add Insurance</div><button class="m-close" onclick="closeModal('m-insurance')" aria-label="Close">✕</button></div>
     <div class="f2">
       <div class="fg">
         <label class="fl">Type</label>
@@ -537,8 +760,7 @@
 <!-- KN ROW MODAL -->
 <div class="overlay" id="m-kn" onclick="overlayClose(event,'m-kn')">
   <div class="modal">
-    <div class="m-handle"></div>
-    <div class="m-title">Add Key Number</div>
+    <div class="m-header"><div class="m-handle" style="margin:0"></div><div class="m-title">Add Key Number</div><button class="m-close" onclick="closeModal('m-kn')" aria-label="Close">✕</button></div>
     <div class="fg"><label class="fl">Label</label><input class="fi" id="kn-lbl-inp" placeholder="e.g. Emergency Fund"/></div>
     <div class="fg"><label class="fl">Value</label><input class="fi" id="kn-val-inp" placeholder="e.g. ₹3L in liquid fund"/></div>
     <div class="m-actions">
@@ -551,8 +773,7 @@
 <!-- RENAME GOAL MODAL -->
 <div class="overlay" id="m-rename" onclick="overlayClose(event,'m-rename')">
   <div class="modal">
-    <div class="m-handle"></div>
-    <div class="m-title">Rename Goal</div>
+    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title">Rename Goal</div><button class="m-close" onclick="closeModal('m-kn')" aria-label="Close">✕</button></div>
     <div class="fg"><label class="fl">Goal Name</label><input class="fi" id="rename-inp" placeholder="Enter new name"/></div>
     <div class="m-actions">
       <button class="btn-cancel" onclick="closeModal('m-rename')">Cancel</button>
@@ -564,8 +785,7 @@
 <!-- ROADMAP MODAL -->
 <div class="overlay" id="m-roadmap" onclick="overlayClose(event,'m-roadmap')">
   <div class="modal">
-    <div class="m-handle"></div>
-    <div class="m-title" id="m-roadmap-title">Add Milestone</div>
+    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title" id="m-roadmap-title">Add Milestone</div><button class="m-close" onclick="closeModal('m-rename')" aria-label="Close">✕</button></div>
     <div class="fg"><label class="fl">Year / Period</label><input class="fi" id="r-year" placeholder="e.g. 2028 or 2032–33"/></div>
     <div class="fg"><label class="fl">Event Description</label><textarea class="ft" id="r-event" placeholder="e.g. Personal loan closed 🎉 Start house fund"></textarea></div>
     <div class="m-actions">
@@ -578,8 +798,7 @@
 <!-- CHECKLIST ADD MODAL -->
 <div class="overlay" id="m-checklist" onclick="overlayClose(event,'m-checklist')">
   <div class="modal">
-    <div class="m-handle"></div>
-    <div class="m-title">Add Checklist Item</div>
+    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title">Add Checklist Item</div><button class="m-close" onclick="closeModal('m-roadmap')" aria-label="Close">✕</button></div>
     <div class="fg"><label class="fl">Item</label><input class="fi" id="cl-item" placeholder="e.g. Review asset allocation 📊"/></div>
     <div class="m-actions">
       <button class="btn-cancel" onclick="closeModal('m-checklist')">Cancel</button>
@@ -591,8 +810,7 @@
 <!-- GOAL MODAL -->
 <div class="overlay" id="m-goal" onclick="overlayClose(event,'m-goal')">
   <div class="modal">
-    <div class="m-handle"></div>
-    <div class="m-title" id="m-goal-title">Add Goal</div>
+    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title" id="m-goal-title">Add Goal</div><button class="m-close" onclick="closeModal('m-checklist')" aria-label="Close">✕</button></div>
     <div class="fg"><label class="fl">Goal Name</label><input class="fi" id="f-name" placeholder="e.g. Son's Graduation"/></div>
     <div class="f2">
       <div class="fg">
@@ -629,7 +847,7 @@
     <div class="fg">
       <label class="fl">Tagged Funds & SIP</label>
       <div id="f-editor"></div>
-      <button class="btn-af" onclick="addFundRow()">Add Fund</button>
+      <button class="btn-af" onclick="addFundRow()">＋ Add Fund Row</button>
     </div>
     <div class="fg"><label class="fl">Exit Strategy / Notes</label><textarea class="ft" id="f-note" placeholder="e.g. 2037 → Move to HDFC BAF → SWP from 2040"></textarea></div>
     <div class="m-actions">
@@ -642,10 +860,9 @@
 <!-- PORTFOLIO EDIT MODAL -->
 <div class="overlay" id="m-portfolio" onclick="overlayClose(event,'m-portfolio')">
   <div class="modal">
-    <div class="m-handle"></div>
-    <div class="m-title">Edit Portfolio</div>
+    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title">Edit Portfolio</div><button class="m-close" onclick="closeModal('m-portfolio')" aria-label="Close">✕</button></div>
     <div class="snap-modal-grid">
-      <div class="fg"><label class="fl">Portfolio Value</label><input class="fi" id="p-val" placeholder="₹26L"/></div>
+      <div class="fg"><label class="fl">Total Wealth</label><input class="fi" id="p-val" placeholder="₹26L"/></div>
       <div class="fg"><label class="fl">Monthly SIP</label><input class="fi" id="p-sip" placeholder="₹80,000"/></div>
       <div class="fg"><label class="fl">Loan EMI</label><input class="fi" id="p-emi" placeholder="₹53,433"/></div>
       <div class="fg"><label class="fl">Loan Closes</label><input class="fi" id="p-loan" placeholder="2027–28"/></div>
@@ -659,14 +876,129 @@
   </div>
 </div>
 
+<!-- INVESTMENT MODAL -->
+<div class="overlay" id="m-investment" onclick="overlayClose(event,'m-investment')">
+  <div class="modal">
+    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title" id="m-inv-title">Add Investment</div><button class="m-close" onclick="closeModal('m-investment')" aria-label="Close">✕</button></div>
+    <div class="fg"><label class="fl">Fund / Asset Name</label><input class="fi" id="inv-name" placeholder="e.g. Parag Parikh Flexi Cap"/></div>
+    <div class="fg">
+      <label class="fl">Type</label>
+      <div class="inv-type-grid" id="inv-type-grid">
+        <button class="inv-type-opt selected" data-type="mutual-fund" onclick="selectInvType('mutual-fund')">
+          <span class="ito-icon">📊</span><span class="ito-lbl">Mutual Fund</span>
+        </button>
+        <button class="inv-type-opt" data-type="stock" onclick="selectInvType('stock')">
+          <span class="ito-icon">📈</span><span class="ito-lbl">Stock</span>
+        </button>
+        <button class="inv-type-opt" data-type="etf" onclick="selectInvType('etf')">
+          <span class="ito-icon">📉</span><span class="ito-lbl">ETF</span>
+        </button>
+        <button class="inv-type-opt" data-type="real-estate" onclick="selectInvType('real-estate')">
+          <span class="ito-icon">🏘️</span><span class="ito-lbl">Real Estate</span>
+        </button>
+        <button class="inv-type-opt" data-type="gold" onclick="selectInvType('gold')">
+          <span class="ito-icon">🥇</span><span class="ito-lbl">Gold</span>
+        </button>
+        <button class="inv-type-opt" data-type="other" onclick="selectInvType('other')">
+          <span class="ito-icon">💼</span><span class="ito-lbl">Other</span>
+        </button>
+      </div>
+      <!-- Hidden select for value storage -->
+      <select id="inv-type" style="display:none">
+        <option value="mutual-fund">Mutual Fund</option>
+        <option value="stock">Stock</option>
+        <option value="etf">ETF</option>
+        <option value="real-estate">Real Estate</option>
+        <option value="gold">Gold</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="f2">
+      <div class="fg"><label class="fl">SIP / Monthly Invest</label><input class="fi" id="inv-sip" placeholder="₹20,000"/></div>
+      <div class="fg"><label class="fl">Current Value</label><input class="fi" id="inv-current" placeholder="₹3.2L"/></div>
+    </div>
+    <div class="f2">
+      <div class="fg"><label class="fl">Target Amount</label><input class="fi" id="inv-target" placeholder="₹1.8 Crore"/></div>
+      <div class="fg"><label class="fl">Target Year</label><input class="fi" id="inv-year" type="number" placeholder="2040"/></div>
+    </div>
+    <div class="fg">
+      <label class="fl">Map to Goals</label>
+      <div class="goal-map-list" id="inv-goal-map"></div>
+    </div>
+    <div class="fg"><label class="fl">Notes</label><textarea class="ft" id="inv-notes" placeholder="e.g. Exit strategy, review schedule…"></textarea></div>
+    <div class="m-actions">
+      <button class="btn-cancel" onclick="closeModal('m-investment')">Cancel</button>
+      <button class="btn-save" onclick="saveInvestment()">Save Investment</button>
+    </div>
+  </div>
+</div>
+
+<!-- NAME MODAL -->
+<div class="overlay" id="m-name" onclick="overlayClose(event,'m-name')">
+  <div class="modal">
+    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title">Your Name</div><button class="m-close" onclick="closeModal('m-name')" aria-label="Close">✕</button></div>
+    <div class="fg"><label class="fl">Name</label><input class="fi" id="user-name-inp" placeholder="e.g. Rahul"/></div>
+    <p style="font-size:13px;color:var(--text2);margin:-6px 0 14px">Your name appears in the app title as "[Name]'s Investment Goals"</p>
+    <div class="m-actions">
+      <button class="btn-cancel" onclick="closeModal('m-name')">Cancel</button>
+      <button class="btn-save" onclick="saveName()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIABILITY MODAL -->
+<div class="overlay" id="m-debt" onclick="overlayClose(event,'m-debt')">
+  <div class="modal">
+    <div class="m-header"><div class="m-handle" style="margin:0 auto 0"></div><div class="m-title" id="m-debt-title">Add Liability</div><button class="m-close" onclick="closeModal('m-debt')" aria-label="Close">✕</button></div>
+    <div class="fg"><label class="fl">Loan / Debt Name</label><input class="fi" id="debt-name" placeholder="e.g. Home Loan – SBI"/></div>
+    <div class="f2">
+      <div class="fg">
+        <label class="fl">Type</label>
+        <select class="fs" id="debt-type">
+          <option value="home-loan">Home Loan</option>
+          <option value="personal">Personal Loan</option>
+          <option value="car-loan">Car Loan</option>
+          <option value="credit-card">Credit Card</option>
+          <option value="education">Education Loan</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="fg"><label class="fl">Emoji</label><input class="fi" id="debt-emoji" placeholder="🏦" maxlength="2"/></div>
+    </div>
+    <div class="f2">
+      <div class="fg"><label class="fl">Outstanding Amount</label><input class="fi" id="debt-outstanding" placeholder="e.g. ₹32 Lakhs"/></div>
+      <div class="fg"><label class="fl">EMI / Month</label><input class="fi" id="debt-emi" placeholder="e.g. ₹53,433"/></div>
+    </div>
+    <div class="f2">
+      <div class="fg"><label class="fl">Interest Rate</label><input class="fi" id="debt-rate" placeholder="e.g. 8.5%"/></div>
+      <div class="fg"><label class="fl">Closing By</label><input class="fi" id="debt-close" placeholder="e.g. 2027–28"/></div>
+    </div>
+    <div class="fg"><label class="fl">Lender</label><input class="fi" id="debt-lender" placeholder="e.g. SBI, HDFC Bank"/></div>
+    <div class="fg"><label class="fl">Notes</label><input class="fi" id="debt-notes" placeholder="e.g. Prepayment plan, linked to goal"/></div>
+    <div class="m-actions">
+      <button class="btn-cancel" onclick="closeModal('m-debt')">Cancel</button>
+      <button class="btn-save" onclick="saveDebt()">Save</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 // ── STATE ────────────────────────────────────────────────────────────────
 let goals = [];
 let editingId = null;
-let openSections = new Set(['portfolio']); // portfolio open by default
+let openSections = new Set(['portfolio']);
 let checkedItems = JSON.parse(localStorage.getItem('ck') || '{}');
+let currentTab = 'home';
+
+let userName = localStorage.getItem('userName') || '';
+
+let debts = JSON.parse(localStorage.getItem('debts') || JSON.stringify([
+  {id:1, name:'Personal Loan – Bank', type:'personal', emoji:'🏦', outstanding:'₹32 Lakhs', emi:'₹53,433', rate:'10.5%', close:'2027–28', lender:'HDFC Bank', notes:'Closes 2027–28 🎉'},
+]));
+
+let editingDebtId = null;
 
 let knRows = JSON.parse(localStorage.getItem('knr') || JSON.stringify([
   {l:'Personal Loan EMI',       v:'₹53,433 / mo'},
@@ -682,11 +1014,17 @@ let insurances = JSON.parse(localStorage.getItem('ins') || JSON.stringify([
   {id:3, type:'health', emoji:'➕', name:'Top-Up Plan', insurer:'', cover:'₹90 Lakhs', premium:'', valid:'', note:'Super top-up coverage'}
 ]));
 
-let sectionOrder = JSON.parse(localStorage.getItem('secOrder') || JSON.stringify(
-  ['portfolio','insurance','Education','FIRE / Retirement','Housing','Emergency Fund','Vacation','Gold / Hedge','roadmap','checklist']
-));
+let investments = JSON.parse(localStorage.getItem('investments') || JSON.stringify([
+  {id:1, name:'Parag Parikh Flexi Cap', type:'mutual-fund', emoji:'📊', sip:'₹25,000', currentValue:'₹3.2L', targetAmount:'₹2.5 Crore', targetYear:2033, mappedGoalIds:[4], notes:'Core equity holding for FIRE'},
+  {id:2, name:'HDFC Mid Cap Opportunities', type:'mutual-fund', emoji:'📊', sip:'₹20,000', currentValue:'₹1.8L', targetAmount:'₹1.3 Crore', targetYear:2040, mappedGoalIds:[2], notes:'Son graduation goal fund'},
+  {id:3, name:'Bandhan Small Cap', type:'mutual-fund', emoji:'📊', sip:'₹15,000', currentValue:'₹0.9L', targetAmount:'₹16 Lakhs', targetYear:2038, mappedGoalIds:[1,2], notes:'High risk, high growth'},
+  {id:4, name:'ICICI Nifty Next 50', type:'etf', emoji:'📉', sip:'₹10,000', currentValue:'₹0.7L', targetAmount:'', targetYear:0, mappedGoalIds:[1,4], notes:'Index tracking ETF'},
+  {id:5, name:'Goldbees ETF', type:'gold', emoji:'🥇', sip:'₹5,000', currentValue:'₹0.4L', targetAmount:'5–10% of portfolio', targetYear:0, mappedGoalIds:[7], notes:'Hedge allocation — review annually'},
+  {id:6, name:'Liquid Fund', type:'mutual-fund', emoji:'💧', sip:'₹25,000', currentValue:'₹1.2L', targetAmount:'₹25–30 Lakhs', targetYear:2032, mappedGoalIds:[5], notes:'House purchase down payment fund'}
+]));
 
 let editingInsId = null;
+let editingInvId = null;
 
 let pf = JSON.parse(localStorage.getItem('pf') || JSON.stringify({
   value:   '₹26L',
@@ -734,15 +1072,33 @@ const CAT_EMOJI = {
   'Housing':'🏠','Emergency Fund':'🛟','Vacation':'✈️','Gold / Hedge':'🥇','Other':'📌'
 };
 
-// ── LOCAL STORAGE GOALS ──────────────────────────────────────────────────
+const INV_TYPE_LABELS = {
+  'mutual-fund': 'Mutual Fund',
+  'stock':       'Stock',
+  'etf':         'ETF',
+  'real-estate': 'Real Estate',
+  'gold':        'Gold',
+  'other':       'Other'
+};
+
+const INV_TYPE_PILL = {
+  'mutual-fund': 'inv-type-mf',
+  'stock':       'inv-type-stock',
+  'etf':         'inv-type-etf',
+  'real-estate': 'inv-type-re',
+  'gold':        'inv-type-gold',
+  'other':       'inv-type-other'
+};
+
+// ── GOALS STORAGE ─────────────────────────────────────────────────────────
 const DEFAULT_GOALS = [
-  {id:1, name:"Son's Intermediate", category:"Education", status:"on-track", emoji:"🎓", target:"₹16 Lakhs", targetYear:2038, current:"Corpus building", note:"Exit Strategy: 2035 → Move corpus to HDFC BAF → Start SWP from 2038", funds:[{name:"Bandhan Small Cap",amount:"₹8,000"},{name:"ICICI Nifty Next 50",amount:"₹5,000"}]},
-  {id:2, name:"Son's Graduation",   category:"Education", status:"on-track", emoji:"🎓", target:"₹1.3 Crore", targetYear:2040, current:"Corpus building", note:"Exit Strategy: 2037 → Move corpus to HDFC BAF → Start SWP from 2040", funds:[{name:"HDFC Mid Cap",amount:"₹15,000"},{name:"Bandhan Small Cap",amount:"₹7,000"}]},
-  {id:3, name:"Son's Higher Education", category:"Education", status:"on-track", emoji:"🎓", target:"₹1.8 Crore", targetYear:2044, current:"Corpus building", note:"₹26L corpus @12% × 18yr funds this goal via existing corpus alone", funds:[{name:"Parag Parikh Flexi Cap",amount:"₹5,000"}]},
-  {id:4, name:"FIRE / Early Retirement", category:"FIRE / Retirement", status:"in-progress", emoji:"🔥", target:"₹2.5 Crore", targetYear:2033, current:"Accumulating", note:"Exit: 2031–32 → Shift to HDFC BAF → SWP ₹60–70k/month from 2033.\n4% withdrawal rule.", funds:[{name:"Parag Parikh Flexi Cap",amount:"₹20,000"},{name:"ICICI Nifty Next 50",amount:"₹5,000"},{name:"HDFC Mid Cap",amount:"₹5,000"}]},
-  {id:5, name:"House Purchase",     category:"Housing",          status:"on-track", emoji:"🏠", target:"₹25–30 Lakhs", targetYear:2032, current:"Saving for down payment", note:"₹25k/mo house fund starts 2028 after loan closes", funds:[{name:"Liquid Fund",amount:"₹25,000"}]},
-  {id:6, name:"Vacation Fund",      category:"Vacation",         status:"on-track", emoji:"✈️", target:"₹5 Lakhs", targetYear:2027, current:"Annual saving", note:"Family vacation goal — top up yearly", funds:[]},
-  {id:7, name:"Gold Hedge",         category:"Gold / Hedge",     status:"on-track", emoji:"🥇", target:"5–10% of portfolio", targetYear:0, current:"Active", note:"Goldbees ETF — review allocation annually", funds:[{name:"Goldbees ETF",amount:"₹5,000"}]}
+  {id:1, name:"Son's Intermediate",      category:"Education",        status:"on-track",    emoji:"🎓", target:"₹16 Lakhs",     targetYear:2038, current:"Corpus building", note:"Exit Strategy: 2035 → Move corpus to HDFC BAF → Start SWP from 2038", funds:[{name:"Bandhan Small Cap",amount:"₹8,000"},{name:"ICICI Nifty Next 50",amount:"₹5,000"}]},
+  {id:2, name:"Son's Graduation",        category:"Education",        status:"on-track",    emoji:"🎓", target:"₹1.3 Crore",    targetYear:2040, current:"Corpus building", note:"Exit Strategy: 2037 → Move corpus to HDFC BAF → Start SWP from 2040", funds:[{name:"HDFC Mid Cap",amount:"₹15,000"},{name:"Bandhan Small Cap",amount:"₹7,000"}]},
+  {id:3, name:"Son's Higher Education",  category:"Education",        status:"on-track",    emoji:"🎓", target:"₹1.8 Crore",    targetYear:2044, current:"Corpus building", note:"₹26L corpus @12% × 18yr funds this goal via existing corpus alone", funds:[{name:"Parag Parikh Flexi Cap",amount:"₹5,000"}]},
+  {id:4, name:"FIRE / Early Retirement", category:"FIRE / Retirement",status:"in-progress", emoji:"🔥", target:"₹2.5 Crore",    targetYear:2033, current:"Accumulating",    note:"Exit: 2031–32 → Shift to HDFC BAF → SWP ₹60–70k/month from 2033.\n4% withdrawal rule.", funds:[{name:"Parag Parikh Flexi Cap",amount:"₹20,000"},{name:"ICICI Nifty Next 50",amount:"₹5,000"},{name:"HDFC Mid Cap",amount:"₹5,000"}]},
+  {id:5, name:"House Purchase",          category:"Housing",          status:"on-track",    emoji:"🏠", target:"₹25–30 Lakhs",  targetYear:2032, current:"Saving for down payment", note:"₹25k/mo house fund starts 2028 after loan closes", funds:[{name:"Liquid Fund",amount:"₹25,000"}]},
+  {id:6, name:"Vacation Fund",           category:"Vacation",         status:"on-track",    emoji:"✈️", target:"₹5 Lakhs",      targetYear:2027, current:"Annual saving",   note:"Family vacation goal — top up yearly", funds:[]},
+  {id:7, name:"Gold Hedge",              category:"Gold / Hedge",     status:"on-track",    emoji:"🥇", target:"5–10% of portfolio", targetYear:0, current:"Active", note:"Goldbees ETF — review allocation annually", funds:[{name:"Goldbees ETF",amount:"₹5,000"}]}
 ];
 
 function loadGoals() {
@@ -771,81 +1127,405 @@ function setNavSub() {
     `Updated ${now.toLocaleDateString('en-IN',{day:'numeric',month:'short'})} at ${now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}`;
 }
 
-// ── SECTIONS ─────────────────────────────────────────────────────────────
+// ── TAB NAVIGATION ──────────────────────────────────────────────────────────
+function getAppTitle() {
+  return userName ? `${userName}'s Goals` : '📋 Investment Goals';
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
+  document.getElementById(`page-${tab}`).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`tab-${tab}`).classList.add('active');
+
+  const titles = {
+    home: getAppTitle(),
+    goals: '🎯 Goals',
+    investments: '📈 Investments',
+    more: '⋯ More'
+  };
+  const addBtnLabels = { home:'', goals:'Add Goal', investments:'Add Investment', more:'' };
+  document.getElementById('nav-title').textContent = titles[tab];
+  const btn = document.getElementById('nav-add-btn');
+  const nameBtn = document.getElementById('name-edit-btn');
+  if (tab === 'home') {
+    btn.style.display = 'none';
+    nameBtn.style.display = '';
+  } else if (addBtnLabels[tab]) {
+    btn.textContent = addBtnLabels[tab];
+    btn.style.display = '';
+    nameBtn.style.display = 'none';
+  } else {
+    btn.style.display = 'none';
+    nameBtn.style.display = 'none';
+  }
+  renderAll();
+}
+
+function handleNavAdd() {
+  if (currentTab === 'goals') openAddModal();
+  else if (currentTab === 'investments') openAddInvestment();
+}
+
+// ── SECTION TOGGLE ──────────────────────────────────────────────────────────
 function toggleSection(id) {
   if (openSections.has(id)) openSections.delete(id);
   else openSections.add(id);
   renderAll();
 }
 
+// ── RENDER ALL ──────────────────────────────────────────────────────────────
 function renderAll() {
-  const el = document.getElementById('main-content');
+  if (currentTab === 'home') renderHome();
+  else if (currentTab === 'goals') renderGoalsPage();
+  else if (currentTab === 'investments') renderInvestmentsPage();
+  else if (currentTab === 'more') renderMorePage();
+}
 
+function renderHome() {
+  const el = document.getElementById('home-content');
+  let html = '';
+  html += renderSection({id:'portfolio', emoji:'📊', label:'Portfolio Snapshot', meta: pf.value, body:renderPortfolioBody()});
+  el.innerHTML = html;
+}
+
+function renderGoalsPage() {
+  const el = document.getElementById('goals-content');
   const groups = {};
   goals.forEach(g => {
     const k = g.category || 'Other';
     (groups[k] = groups[k] || []).push(g);
   });
-
-  // Build section map
-  const sectionMap = {
-    portfolio: () => renderSection({id:'portfolio', emoji:'📊', label:'Portfolio Snapshot', meta: pf.value, body:renderPortfolioBody(), draggable:true}),
-    insurance: () => renderSection({id:'insurance', emoji:'🛡️', label:'Insurance', meta:`${insurances.length} polic${insurances.length===1?'y':'ies'}`, body:renderInsuranceBody(), draggable:true}),
-    roadmap:   () => renderSection({id:'roadmap',   emoji:'🗓', label:'Roadmap',   meta:`${TIMELINE.length} milestones`, body:renderRoadmapBody(), draggable:true}),
-    checklist: () => { const done=Object.values(checkedItems).filter(Boolean).length; return renderSection({id:'checklist',emoji:'✅',label:'Annual Checklist',meta:`${done}/${CL.length} done`,body:renderChecklistBody(), draggable:true}); }
-  };
-
-  // Ensure all goal categories in sectionOrder
-  Object.keys(groups).forEach(cat => {
-    if (!sectionOrder.includes(cat)) sectionOrder.push(cat);
-  });
+  const catOrder = ['Education','FIRE / Retirement','Housing','Emergency Fund','Vacation','Gold / Hedge','Other'];
+  Object.keys(groups).forEach(cat => { if (!catOrder.includes(cat)) catOrder.push(cat); });
 
   let html = '';
-  sectionOrder.forEach(id => {
-    if (sectionMap[id]) {
-      html += sectionMap[id]();
-    } else if (groups[id]) {
-      const items = groups[id];
-      html += renderSection({
-        id: `cat-${id}`, emoji: CAT_EMOJI[id]||'📌', label: id,
-        meta: `${items.length} goal${items.length>1?'s':''}`,
-        body: renderCategoryBody(id, items), draggable: true
-      });
-    }
+  // Insurance as first collapsible section in Goals
+  html += renderSection({
+    id: 'insurance', emoji: '🛡️', label: 'Insurance',
+    meta: `${insurances.length} polic${insurances.length===1?'y':'ies'}`,
+    body: renderInsuranceBody()
+  });
+
+  catOrder.forEach(cat => {
+    if (!groups[cat]) return;
+    html += renderSection({
+      id: `cat-${cat}`, emoji: CAT_EMOJI[cat]||'📌', label: cat,
+      meta: `${groups[cat].length} goal${groups[cat].length>1?'s':''}`,
+      body: renderCategoryBody(cat, groups[cat])
+    });
+  });
+  el.innerHTML = html;
+}
+
+function renderInvestmentsPage() {
+  const el = document.getElementById('investments-content');
+
+  // Summary bar
+  const totalSIP = investments.reduce((s, inv) => {
+    const n = parseInt((inv.sip||'').replace(/[^0-9]/g,'')) || 0;
+    return s + n;
+  }, 0);
+  const sipLabel = totalSIP >= 100000 ? `₹${(totalSIP/100000).toFixed(1)}L` : totalSIP >= 1000 ? `₹${(totalSIP/1000).toFixed(0)}k` : `₹${totalSIP}`;
+
+  let html = `<div class="inv-summary-bar">
+    <div class="inv-sum-item">
+      <div class="inv-sum-val">${investments.length}</div>
+      <div class="inv-sum-lbl">Instruments</div>
+    </div>
+    <div class="inv-sum-item">
+      <div class="inv-sum-val">${sipLabel}</div>
+      <div class="inv-sum-lbl">Monthly SIP</div>
+    </div>
+    <div class="inv-sum-item">
+      <div class="inv-sum-val">${pf.value}</div>
+      <div class="inv-sum-lbl">Portfolio</div>
+    </div>
+  </div>`;
+
+  // Group by type
+  const typeOrder = ['mutual-fund','etf','stock','real-estate','gold','other'];
+  const typeGroups = {};
+  investments.forEach(inv => {
+    (typeGroups[inv.type] = typeGroups[inv.type] || []).push(inv);
+  });
+
+  typeOrder.forEach(type => {
+    if (!typeGroups[type]) return;
+    const secId = `inv-${type}`;
+    const label = INV_TYPE_LABELS[type];
+    const items = typeGroups[type];
+    const body = renderInvestmentGroup(items);
+    html += renderSection({
+      id: secId, emoji: typeEmoji(type),
+      label, meta: `${items.length}`,
+      body
+    });
   });
 
   el.innerHTML = html;
-  initDragSections();
 }
 
-function catToSecClass(id) {
-  if (id === 'portfolio') return 'sec-portfolio';
-  if (id === 'roadmap')   return 'sec-roadmap';
-  if (id === 'checklist') return 'sec-checklist';
-  const cat = id.replace('cat-','').toLowerCase();
-  if (cat.includes('education'))  return 'sec-education';
-  if (cat.includes('fire'))       return 'sec-fire';
-  if (cat.includes('housing'))    return 'sec-housing';
-  if (cat.includes('vacation'))   return 'sec-vacation';
-  if (cat.includes('gold'))       return 'sec-gold';
-  return 'sec-other';
+function typeEmoji(type) {
+  return {
+    'mutual-fund':'📊', 'stock':'📈', 'etf':'📉',
+    'real-estate':'🏘️', 'gold':'🥇', 'other':'💼'
+  }[type] || '📌';
 }
 
-function renderSection({id, emoji, label, meta, body, draggable}) {
-  const isOpen = openSections.has(id);
-  const cls = catToSecClass(id);
-  const normId = id.startsWith('cat-') ? id.replace('cat-','') : id;
-  const idx = sectionOrder.indexOf(normId);
-  const canUp   = idx > 0;
-  const canDown = idx < sectionOrder.length - 1;
-  return `
-  <div class="section ${cls} ${isOpen ? 'open' : ''}" id="sec-${id}" data-sid="${id}">
-    <div class="section-toggle-wrap" style="display:flex;align-items:center">
-      <div style="display:flex;flex-direction:column;padding:0 4px 0 10px;gap:1px;flex-shrink:0">
-        <button class="sec-move-btn" onclick="moveSection('${normId}',-1)" ${canUp?'':'disabled style="opacity:0.2;cursor:default"'} title="Move up">▲</button>
-        <button class="sec-move-btn" onclick="moveSection('${normId}',1)"  ${canDown?'':'disabled style="opacity:0.2;cursor:default"'} title="Move down">▼</button>
+function renderInvestmentGroup(items) {
+  const type = items[0].type;
+  return items.map(inv => renderInvCard(inv)).join('') +
+    `<div class="add-goal-row">
+      <button class="btn-add-inline" onclick="openAddInvestmentForType('${type}')">+ Add ${INV_TYPE_LABELS[type]||type}</button>
+    </div>`;
+}
+
+function renderInvCard(inv) {
+  const mappedGoals = (inv.mappedGoalIds||[])
+    .map(gid => goals.find(g => g.id === gid))
+    .filter(Boolean);
+
+  const goalsHtml = mappedGoals.length
+    ? `<div class="inv-goals-row">
+        <div class="inv-goals-label">Mapped Goals</div>
+        <div class="inv-goal-tags">${mappedGoals.map(g => `<span class="inv-goal-tag">${g.emoji||''} ${g.name}</span>`).join('')}</div>
+       </div>`
+    : '';
+
+  return `<div class="inv-card">
+    <div class="inv-card-header">
+      <div class="inv-card-left">
+        <div class="inv-type-pill ${INV_TYPE_PILL[inv.type]||'inv-type-other'}">${INV_TYPE_LABELS[inv.type]||inv.type}</div>
+        <div class="inv-name">${inv.emoji||'📊'} ${inv.name}</div>
       </div>
-      <button class="section-toggle" style="flex:1;padding-left:4px" onclick="toggleSection('${id}')">
+      <div class="inv-card-actions">
+        <button class="btn-icon" onclick="editInvestment(${inv.id})">✏️</button>
+        <button class="btn-icon del" onclick="delInvestment(${inv.id})">${trashSVG()}</button>
+      </div>
+    </div>
+    <div class="inv-divider"></div>
+    <div class="inv-body">
+      ${inv.sip          ? `<div class="inv-row"><span class="inv-lbl">Monthly SIP</span><span class="inv-val">${inv.sip}</span></div>` : ''}
+      ${inv.currentValue ? `<div class="inv-row"><span class="inv-lbl">Current Value</span><span class="inv-val">${inv.currentValue}</span></div>` : ''}
+      ${inv.targetAmount ? `<div class="inv-row"><span class="inv-lbl">Target Amount</span><span class="inv-val">${inv.targetAmount}</span></div>` : ''}
+      ${inv.targetYear>0 ? `<div class="inv-row"><span class="inv-lbl">Target Year</span><span class="inv-val">${inv.targetYear}</span></div>` : ''}
+      ${goalsHtml}
+      ${inv.notes ? `<div class="note-box" style="margin-top:6px">${inv.notes}</div>` : ''}
+    </div>
+  </div>`;
+}
+
+function renderMorePage() {
+  const el = document.getElementById('more-content');
+  const done = Object.values(checkedItems).filter(Boolean).length;
+
+  let html = '';
+  html += renderSection({id:'roadmap', emoji:'🗓', label:'Roadmap', meta:`${TIMELINE.length} milestones`, body:renderRoadmapBody()});
+  html += renderSection({id:'checklist', emoji:'✅', label:'Annual Checklist', meta:`${done}/${CL.length} done`, body:renderChecklistBody()});
+  html += renderSection({id:'debts', emoji:'💳', label:'Liabilities & Debts', meta: renderDebtMeta(), body:renderDebtsBody()});
+
+  html += `<div class="more-section-title">Profile</div>
+  <div class="more-section">
+    <div class="more-row" onclick="openNameModal()">
+      <span class="more-icon">👤</span>
+      <span class="more-lbl">${userName ? `Name: ${userName}` : 'Set Your Name'}</span>
+      <span class="more-arrow">›</span>
+    </div>
+  </div>
+
+  <div class="more-section-title">Appearance</div>
+  <div class="more-section">
+    <div class="more-row" onclick="toggleTheme()">
+      <span class="more-icon" id="theme-more-icon">🌙</span>
+      <span class="more-lbl" id="theme-more-lbl">Dark Mode</span>
+      <span class="more-arrow">›</span>
+    </div>
+  </div>
+
+  <div class="more-section-title">About</div>
+  <div class="more-section">
+    <div class="more-row">
+      <span class="more-icon">📋</span>
+      <span class="more-lbl">Investment Goals Tracker</span>
+      <span class="more-arrow" style="font-size:11px;color:var(--text2)">v2.0</span>
+    </div>
+  </div>`;
+
+  el.innerHTML = html;
+
+  const isDark = document.body.classList.contains('dark');
+  const mi = document.getElementById('theme-more-icon');
+  const ml = document.getElementById('theme-more-lbl');
+  if (mi) mi.textContent = isDark ? '☀️' : '🌙';
+  if (ml) ml.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+}
+
+// ── INSURANCE BODY (used in Goals tab) ──────────────────────────────────────
+function renderInsuranceBody() {
+  const badgeClass = t => t==='term'?'badge-term':t==='health'?'badge-health':'badge-other';
+  const badgeLabel = t => t==='term'?'Term Life':t==='health'?'Health':'Other';
+  let html = insurances.map(ins => `
+  <div class="ins-card">
+    <div class="ins-header">
+      <div style="flex:1">
+        <div><span class="ins-type-badge ${badgeClass(ins.type)}">${badgeLabel(ins.type)}</span></div>
+        <div class="ins-name">${ins.emoji||'🛡️'} ${ins.name}</div>
+      </div>
+      <div class="ins-actions">
+        <button class="btn-icon" onclick="editInsurance(${ins.id})">✏️</button>
+        <button class="btn-icon del" onclick="delInsurance(${ins.id})">${trashSVG()}</button>
+      </div>
+    </div>
+    <div class="ins-divider"></div>
+    <div class="ins-body">
+      <div class="ins-row"><span class="ins-lbl">Coverage</span><span class="ins-val">${ins.cover||'—'}</span></div>
+      ${ins.insurer ? `<div class="ins-row"><span class="ins-lbl">Insurer</span><span class="ins-val">${ins.insurer}</span></div>` : ''}
+      ${ins.premium ? `<div class="ins-row"><span class="ins-lbl">Premium</span><span class="ins-val">${ins.premium} / yr</span></div>` : ''}
+      ${ins.valid   ? `<div class="ins-row"><span class="ins-lbl">Valid Till</span><span class="ins-val">${ins.valid}</span></div>` : ''}
+      ${ins.note    ? `<div class="ins-row"><span class="ins-lbl">Note</span><span class="ins-val" style="font-weight:500;color:var(--text3)">${ins.note}</span></div>` : ''}
+    </div>
+  </div>`).join('');
+  html += `<div class="add-goal-row"><button class="btn-add-inline" onclick="openAddInsurance()">Add Insurance Policy</button></div>`;
+  return html;
+}
+
+// ── DEBTS / LIABILITIES ───────────────────────────────────────────────────
+const DEBT_TYPE_BADGE = {
+  'home-loan':'badge-homeloan','personal':'badge-personal','car-loan':'badge-carloan',
+  'credit-card':'badge-credit','education':'badge-education','other':'badge-other-debt'
+};
+const DEBT_TYPE_LABEL = {
+  'home-loan':'Home Loan','personal':'Personal Loan','car-loan':'Car Loan',
+  'credit-card':'Credit Card','education':'Education Loan','other':'Other'
+};
+
+function renderDebtMeta() {
+  if (!debts.length) return '0 liabilities';
+  return `${debts.length} liabilit${debts.length===1?'y':'ies'}`;
+}
+
+function renderDebtsBody() {
+  if (!debts.length) {
+    return `<div class="empty-goals">No liabilities added yet</div>
+    <div class="add-goal-row"><button class="btn-add-inline" onclick="openAddDebt()">Add Liability / Debt</button></div>`;
+  }
+  let html = debts.map(d => `
+  <div class="debt-card">
+    <div class="debt-header">
+      <div style="flex:1">
+        <div><span class="debt-type-badge ${DEBT_TYPE_BADGE[d.type]||'badge-other-debt'}">${DEBT_TYPE_LABEL[d.type]||d.type}</span></div>
+        <div class="debt-name">${d.emoji||'🏦'} ${d.name}</div>
+      </div>
+      <div class="debt-actions">
+        <button class="btn-icon" onclick="editDebt(${d.id})">✏️</button>
+        <button class="btn-icon del" onclick="delDebt(${d.id})">${trashSVG()}</button>
+      </div>
+    </div>
+    <div class="debt-divider" style="height:1px;background:var(--div);margin:0 14px"></div>
+    <div class="debt-body">
+      ${d.outstanding ? `<div class="debt-row"><span class="debt-lbl">Outstanding</span><span class="debt-val red">${d.outstanding}</span></div>` : ''}
+      ${d.emi         ? `<div class="debt-row"><span class="debt-lbl">EMI / Month</span><span class="debt-val">${d.emi}</span></div>` : ''}
+      ${d.rate        ? `<div class="debt-row"><span class="debt-lbl">Interest Rate</span><span class="debt-val">${d.rate}</span></div>` : ''}
+      ${d.close       ? `<div class="debt-row"><span class="debt-lbl">Closing By</span><span class="debt-val">${d.close}</span></div>` : ''}
+      ${d.lender      ? `<div class="debt-row"><span class="debt-lbl">Lender</span><span class="debt-val">${d.lender}</span></div>` : ''}
+      ${d.notes       ? `<div class="note-box" style="margin-top:6px">${d.notes}</div>` : ''}
+    </div>
+  </div>`).join('');
+  html += `<div class="add-goal-row"><button class="btn-add-inline" onclick="openAddDebt()">Add Liability / Debt</button></div>`;
+  return html;
+}
+
+function openAddDebt() {
+  editingDebtId = null;
+  document.getElementById('m-debt-title').textContent = 'Add Liability';
+  ['debt-name','debt-outstanding','debt-emi','debt-rate','debt-close','debt-lender','debt-notes'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('debt-type').value = 'personal';
+  document.getElementById('debt-emoji').value = '🏦';
+  openModal('m-debt');
+}
+
+function editDebt(id) {
+  editingDebtId = id;
+  const d = debts.find(x=>x.id===id);
+  if (!d) return;
+  document.getElementById('m-debt-title').textContent = 'Edit Liability';
+  document.getElementById('debt-name').value        = d.name || '';
+  document.getElementById('debt-type').value        = d.type || 'personal';
+  document.getElementById('debt-emoji').value       = d.emoji || '🏦';
+  document.getElementById('debt-outstanding').value = d.outstanding || '';
+  document.getElementById('debt-emi').value         = d.emi || '';
+  document.getElementById('debt-rate').value        = d.rate || '';
+  document.getElementById('debt-close').value       = d.close || '';
+  document.getElementById('debt-lender').value      = d.lender || '';
+  document.getElementById('debt-notes').value       = d.notes || '';
+  openModal('m-debt');
+}
+
+function saveDebt() {
+  const name = document.getElementById('debt-name').value.trim();
+  if (!name) { toast('Please enter a name', true); return; }
+  const d = {
+    id:          editingDebtId || Date.now(),
+    name,
+    type:        document.getElementById('debt-type').value,
+    emoji:       document.getElementById('debt-emoji').value || '🏦',
+    outstanding: document.getElementById('debt-outstanding').value.trim(),
+    emi:         document.getElementById('debt-emi').value.trim(),
+    rate:        document.getElementById('debt-rate').value.trim(),
+    close:       document.getElementById('debt-close').value.trim(),
+    lender:      document.getElementById('debt-lender').value.trim(),
+    notes:       document.getElementById('debt-notes').value.trim()
+  };
+  if (editingDebtId) {
+    const idx = debts.findIndex(x=>x.id===editingDebtId);
+    if (idx!==-1) debts[idx] = d;
+    toast('Liability updated ✓');
+  } else {
+    debts.push(d);
+    toast('Liability added ✓');
+  }
+  localStorage.setItem('debts', JSON.stringify(debts));
+  closeModal('m-debt');
+  openSections.add('debts');
+  renderAll();
+}
+
+function delDebt(id) {
+  if (!confirm('Delete this liability?')) return;
+  debts = debts.filter(x=>x.id!==id);
+  localStorage.setItem('debts', JSON.stringify(debts));
+  renderAll();
+  toast('Liability deleted');
+}
+
+// ── USER NAME ────────────────────────────────────────────────────────────────
+function openNameModal() {
+  document.getElementById('user-name-inp').value = userName;
+  openModal('m-name');
+}
+
+function saveName() {
+  const n = document.getElementById('user-name-inp').value.trim();
+  userName = n;
+  localStorage.setItem('userName', n);
+  closeModal('m-name');
+  // Update title
+  if (currentTab === 'home') {
+    document.getElementById('nav-title').textContent = getAppTitle();
+  }
+  renderAll();
+  toast(n ? `Hello, ${n}! 👋` : 'Name cleared');
+}
+
+// ── SECTION RENDERER ──────────────────────────────────────────────────────
+function renderSection({id, emoji, label, meta, body}) {
+  const isOpen = openSections.has(id);
+  return `
+  <div class="section ${isOpen ? 'open' : ''}" id="sec-${id}">
+    <div class="section-toggle-wrap">
+      <button class="section-toggle" onclick="toggleSection('${id}')">
         <span class="section-emoji">${emoji}</span>
         <span class="section-label">${label}</span>
         <span class="section-meta">${meta}</span>
@@ -859,19 +1539,13 @@ function renderSection({id, emoji, label, meta, body, draggable}) {
   </div>`;
 }
 
-// ── KEY NUMBERS DYNAMIC ──────────────────────────────────────────────────────
+// ── KEY NUMBERS ──────────────────────────────────────────────────────────────
 function renderKnRows() {
   return knRows.map((r,i) => `
     <div class="kn-row">
       <span class="kn-lbl">${r.l}</span>
       <span class="kn-val">${r.v}</span>
-      <button class="kn-del" onclick="delKnRow(${i})" title="Delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="3 6 5 6 21 6"></polyline>
-  <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
-  <path d="M10 11v6"></path>
-  <path d="M14 11v6"></path>
-  <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
-</svg></button>
+      <button class="kn-del" onclick="delKnRow(${i})">${trashSVG()}</button>
     </div>`).join('');
 }
 
@@ -901,81 +1575,39 @@ function delKnRow(i) {
   toast('Row deleted');
 }
 
-// ── PORTFOLIO BODY ────────────────────────────────────────────────────────
+// ── PORTFOLIO BODY ─────────────────────────────────────────────────────────
 function renderPortfolioBody() {
   return `
   <div class="snapshot-grid">
     <div class="snap-tile">
-      <div class="snap-tile-label">Portfolio Value</div>
-      <div class="snap-tile-value" >${pf.value}</div>
-      <div class="snap-tile-sub">Current</div>
+      <div class="snap-tile-label">Total Wealth</div>
+      <div class="snap-tile-value">${pf.value}</div>
+      <div class="snap-tile-sub">Assets</div>
     </div>
     <div class="snap-tile">
       <div class="snap-tile-label">Monthly SIP</div>
-      <div class="snap-tile-value" >${pf.sip}</div>
+      <div class="snap-tile-value">${pf.sip}</div>
       <div class="snap-tile-sub">Active</div>
     </div>
     <div class="snap-tile">
       <div class="snap-tile-label">Active Goals</div>
-      <div class="snap-tile-value" >${goals.length}</div>
+      <div class="snap-tile-value">${goals.length}</div>
       <div class="snap-tile-sub">Being tracked</div>
     </div>
     <div class="snap-tile">
       <div class="snap-tile-label">FIRE Target</div>
-      <div class="snap-tile-value" >${pf.fire}</div>
+      <div class="snap-tile-value">${pf.fire}</div>
       <div class="snap-tile-sub">Retirement</div>
     </div>
   </div>
-  <div class="key-numbers" id="kn-list">
-    ${renderKnRows()}
-  </div>
+  <div class="key-numbers">${renderKnRows()}</div>
   <div class="snap-edit-row">
     <button class="snap-edit-btn" onclick="openPortfolioEdit()">✏️ Edit Snapshot</button>
     <button class="snap-edit-btn" onclick="openAddKnRow()" style="margin-left:8px">Add Row</button>
   </div>`;
 }
 
-// ── INSURANCE BODY ───────────────────────────────────────────────────────────
-function renderInsuranceBody() {
-  const badgeClass = t => t==='term'?'badge-term':t==='health'?'badge-health':'badge-other';
-  const badgeLabel = t => t==='term'?'Term Life':t==='health'?'Health':'Other';
-
-  let html = insurances.map((ins,i) => `
-  <div class="ins-card" id="ins-${ins.id}" draggable="true" data-insid="${ins.id}">
-    <div class="ins-header">
-      <div style="display:flex;align-items:center;gap:8px;flex:1">
-        <div>
-          <div><span class="ins-type-badge ${badgeClass(ins.type)}">${badgeLabel(ins.type)}</span></div>
-          <div class="ins-name">${ins.emoji||'🛡️'} ${ins.name}</div>
-        </div>
-      </div>
-      <div class="ins-actions">
-        <button class="btn-icon" onclick="editInsurance(${ins.id})">✏️</button>
-        <button class="btn-icon del" onclick="delInsurance(${ins.id})"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="3 6 5 6 21 6"></polyline>
-  <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
-  <path d="M10 11v6"></path>
-  <path d="M14 11v6"></path>
-  <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
-</svg></button>
-      </div>
-    </div>
-    <div class="ins-divider"></div>
-    <div class="ins-body">
-      <div class="ins-row"><span class="ins-lbl">Coverage</span><span class="ins-val">${ins.cover||'—'}</span></div>
-      ${ins.insurer ? `<div class="ins-row"><span class="ins-lbl">Insurer</span><span class="ins-val">${ins.insurer}</span></div>` : ''}
-      ${ins.premium ? `<div class="ins-row"><span class="ins-lbl">Premium</span><span class="ins-val">${ins.premium} / yr</span></div>` : ''}
-      ${ins.valid   ? `<div class="ins-row"><span class="ins-lbl">Valid Till</span><span class="ins-val">${ins.valid}</span></div>` : ''}
-      ${ins.note    ? `<div class="ins-row"><span class="ins-lbl">Note</span><span class="ins-val" style="font-weight:500;color:var(--text3)">${ins.note}</span></div>` : ''}
-    </div>
-  </div>`).join('');
-
-  html += `<div class="add-goal-row">
-    <button class="btn-add-inline" onclick="openAddInsurance()">Add Insurance Policy</button>
-  </div>`;
-  return html;
-}
-
+// ── INSURANCE ───────────────────────────────────────────────────────────────
 function openAddInsurance() {
   editingInsId = null;
   document.getElementById('m-ins-title').textContent = 'Add Insurance';
@@ -1025,7 +1657,6 @@ function saveInsurance() {
   }
   localStorage.setItem('ins', JSON.stringify(insurances));
   closeModal('m-insurance');
-  openSections.add('insurance');
   renderAll();
 }
 
@@ -1037,38 +1668,102 @@ function delInsurance(id) {
   toast('Policy deleted');
 }
 
-// Insurance card drag-to-reorder
-function initInsuranceDrag() {
-  const cards = document.querySelectorAll('.ins-card');
-  let dragSrc = null;
-  cards.forEach(card => {
-    card.addEventListener('dragstart', e => {
-      dragSrc = card;
-      card.classList.add('dragging');
-      e.dataTransfer.effectAllowed = 'move';
-    });
-    card.addEventListener('dragend', () => card.classList.remove('dragging'));
-    card.addEventListener('dragover', e => { e.preventDefault(); card.classList.add('drag-over'); });
-    card.addEventListener('dragleave', () => card.classList.remove('drag-over'));
-    card.addEventListener('drop', e => {
-      e.preventDefault();
-      card.classList.remove('drag-over');
-      if (dragSrc && dragSrc !== card) {
-        const srcId = parseInt(dragSrc.dataset.insid);
-        const tgtId = parseInt(card.dataset.insid);
-        const si = insurances.findIndex(x=>x.id===srcId);
-        const ti = insurances.findIndex(x=>x.id===tgtId);
-        const [moved] = insurances.splice(si, 1);
-        insurances.splice(ti, 0, moved);
-        localStorage.setItem('ins', JSON.stringify(insurances));
-        openSections.add('insurance');
-        renderAll();
-      }
-    });
+// ── INVESTMENTS CRUD ────────────────────────────────────────────────────────
+const INV_TYPE_EMOJI = {
+  'mutual-fund':'📊', 'stock':'📈', 'etf':'📉',
+  'real-estate':'🏘️', 'gold':'🥇', 'other':'💼'
+};
+
+function selectInvType(type) {
+  document.querySelectorAll('.inv-type-opt').forEach(btn => {
+    btn.classList.toggle('selected', btn.dataset.type === type);
   });
+  document.getElementById('inv-type').value = type;
 }
 
-// ── CATEGORY BODY ─────────────────────────────────────────────────────────
+function openAddInvestment() {
+  editingInvId = null;
+  document.getElementById('m-inv-title').textContent = 'Add Investment';
+  ['inv-name','inv-sip','inv-current','inv-target','inv-notes'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('inv-year').value = '';
+  selectInvType('mutual-fund');
+  populateGoalMapList([]);
+  openModal('m-investment');
+}
+
+function openAddInvestmentForType(type) {
+  openAddInvestment();
+  selectInvType(type || 'mutual-fund');
+}
+
+function editInvestment(id) {
+  editingInvId = id;
+  const inv = investments.find(x=>x.id===id);
+  if (!inv) return;
+  document.getElementById('m-inv-title').textContent = 'Edit Investment';
+  document.getElementById('inv-name').value    = inv.name    || '';
+  document.getElementById('inv-sip').value     = inv.sip     || '';
+  document.getElementById('inv-current').value = inv.currentValue || '';
+  document.getElementById('inv-target').value  = inv.targetAmount || '';
+  document.getElementById('inv-year').value    = inv.targetYear > 0 ? inv.targetYear : '';
+  document.getElementById('inv-notes').value   = inv.notes   || '';
+  selectInvType(inv.type || 'mutual-fund');
+  populateGoalMapList(inv.mappedGoalIds || []);
+  openModal('m-investment');
+}
+
+function populateGoalMapList(selected) {
+  const container = document.getElementById('inv-goal-map');
+  container.innerHTML = goals.map(g => `
+    <label class="goal-map-item">
+      <input type="checkbox" value="${g.id}" ${selected.includes(g.id)?'checked':''}>
+      <span class="goal-map-item-label">${g.emoji||'📌'} ${g.name} <span style="color:var(--text2);font-size:12px">(${g.category})</span></span>
+    </label>`).join('');
+}
+
+function saveInvestment() {
+  const name = document.getElementById('inv-name').value.trim();
+  if (!name) { toast('Please enter a fund/asset name', true); return; }
+
+  const mappedGoalIds = [...document.querySelectorAll('#inv-goal-map input[type="checkbox"]:checked')]
+    .map(cb => parseInt(cb.value));
+
+  const inv = {
+    id:           editingInvId || Date.now(),
+    name,
+    type:         document.getElementById('inv-type').value,
+    emoji:        INV_TYPE_EMOJI[document.getElementById('inv-type').value] || '📊',
+    sip:          document.getElementById('inv-sip').value.trim(),
+    currentValue: document.getElementById('inv-current').value.trim(),
+    targetAmount: document.getElementById('inv-target').value.trim(),
+    targetYear:   parseInt(document.getElementById('inv-year').value) || 0,
+    mappedGoalIds,
+    notes:        document.getElementById('inv-notes').value.trim()
+  };
+
+  if (editingInvId) {
+    const idx = investments.findIndex(x=>x.id===editingInvId);
+    if (idx!==-1) investments[idx] = inv;
+    toast('Investment updated ✓');
+  } else {
+    investments.push(inv);
+    toast('Investment added ✓');
+  }
+  localStorage.setItem('investments', JSON.stringify(investments));
+  closeModal('m-investment');
+  openSections.add(`inv-${inv.type}`);
+  renderAll();
+}
+
+function delInvestment(id) {
+  if (!confirm('Delete this investment?')) return;
+  investments = investments.filter(x=>x.id!==id);
+  localStorage.setItem('investments', JSON.stringify(investments));
+  renderAll();
+  toast('Investment deleted');
+}
+
+// ── GOAL BODY ─────────────────────────────────────────────────────────────
 function renderCategoryBody(cat, items) {
   let html = '';
   items.forEach(g => { html += renderGoalCard(g); });
@@ -1076,17 +1771,6 @@ function renderCategoryBody(cat, items) {
     <button class="btn-add-inline" onclick="openAddModalForCat('${cat.replace(/'/g,"\\'")}')">Add ${cat} Goal</button>
   </div>`;
   return html;
-}
-
-function catGoalClass(cat) {
-  if (!cat) return 'cat-other';
-  const c = cat.toLowerCase();
-  if (c.includes('education'))  return 'cat-education';
-  if (c.includes('fire'))       return 'cat-fire';
-  if (c.includes('housing'))    return 'cat-housing';
-  if (c.includes('vacation'))   return 'cat-vacation';
-  if (c.includes('gold'))       return 'cat-gold';
-  return 'cat-other';
 }
 
 function renderGoalCard(g) {
@@ -1099,29 +1783,21 @@ function renderGoalCard(g) {
     : '';
 
   return `
-  <div class="goal-card ${catGoalClass(g.category)}">
+  <div class="goal-card">
     <div class="goal-header">
       <div class="goal-name">
         ${g.emoji||'📌'} ${g.name}
         <span class="pill ${sc.c}">${sc.l}</span>
       </div>
       <div class="goal-actions">
-        <button class="btn-icon" onclick="moveGoal(${g.id},-1)" title="Move up">↑</button>
-        <button class="btn-icon" onclick="moveGoal(${g.id},1)"  title="Move down">↓</button>
-        <button class="btn-icon" onclick="editGoal(${g.id})"    title="Edit">✏️</button>
-        <button class="btn-icon del" onclick="delGoal(${g.id})" title="Delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="3 6 5 6 21 6"></polyline>
-  <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
-  <path d="M10 11v6"></path>
-  <path d="M14 11v6"></path>
-  <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
-</svg></button>
+        <button class="btn-icon" onclick="editGoal(${g.id})" title="Edit">✏️</button>
+        <button class="btn-icon del" onclick="delGoal(${g.id})" title="Delete">${trashSVG()}</button>
       </div>
     </div>
     <div class="goal-divider"></div>
     <div class="goal-body">
-      ${g.target ? `<div class="info-row"><span class="info-lbl">Target</span><span class="info-val">${g.target}</span></div>` : ''}
-      ${g.year   ? `<div class="info-row"><span class="info-lbl">Year</span><span class="info-val">${yr}</span></div>` : ''}
+      ${g.target  ? `<div class="info-row"><span class="info-lbl">Target</span><span class="info-val">${g.target}</span></div>` : ''}
+      ${g.year    ? `<div class="info-row"><span class="info-lbl">Year</span><span class="info-val">${yr}</span></div>` : ''}
       ${g.current ? `<div class="info-row"><span class="info-lbl">Status</span><span class="info-val">${g.current}</span></div>` : ''}
       ${fundsHTML}
       ${g.note ? `<div class="note-box">${g.note.replace(/\n/g,'<br>')}</div>` : ''}
@@ -1129,7 +1805,7 @@ function renderGoalCard(g) {
   </div>`;
 }
 
-// ── ROADMAP BODY ──────────────────────────────────────────────────────────
+// ── ROADMAP BODY ────────────────────────────────────────────────────────────
 function renderRoadmapBody() {
   return `<div class="tl-wrap">` +
     TIMELINE.map((t,i) => `
@@ -1137,22 +1813,14 @@ function renderRoadmapBody() {
       <div class="tl-yr">${t.y}</div>
       <div class="tl-ev">${t.e}</div>
       <div class="tl-actions">
-        <button class="tl-btn" onclick="editMilestone(${i})" title="Edit">✏️</button>
-        <button class="tl-btn del" onclick="delMilestone(${i})" title="Delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="3 6 5 6 21 6"></polyline>
-  <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
-  <path d="M10 11v6"></path>
-  <path d="M14 11v6"></path>
-  <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
-</svg></button>
+        <button class="tl-btn" onclick="editMilestone(${i})">✏️</button>
+        <button class="tl-btn del" onclick="delMilestone(${i})">${trashSVG()}</button>
       </div>
     </div>`).join('') +
-    `<div class="tl-add-row">
-      <button class="tl-add-btn" onclick="openAddMilestone()">Add Milestone</button>
-    </div></div>`;
+    `<div class="tl-add-row"><button class="tl-add-btn" onclick="openAddMilestone()">Add Milestone</button></div></div>`;
 }
 
-// ── CHECKLIST BODY ────────────────────────────────────────────────────────
+// ── CHECKLIST BODY ───────────────────────────────────────────────────────────
 function renderChecklistBody() {
   return `<div class="chk-wrap">` +
     CL.map((item, i) => {
@@ -1160,39 +1828,26 @@ function renderChecklistBody() {
       return `<div class="chk-item" onclick="toggleChk(${i})">
         <div class="chk-box ${on?'on':''}">&#10003;</div>
         <span class="chk-txt ${on?'done':''}">${item}</span>
-        <button class="chk-del" onclick="event.stopPropagation();delCheckItem(${i})" title="Delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="3 6 5 6 21 6"></polyline>
-  <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
-  <path d="M10 11v6"></path>
-  <path d="M14 11v6"></path>
-  <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
-</svg></button>
+        <button class="chk-del" onclick="event.stopPropagation();delCheckItem(${i})">${trashSVG()}</button>
       </div>`;
     }).join('') +
-    `<div class="chk-add-row">
-      <button class="chk-add-btn" onclick="openAddCheckItem()">Add Item</button>
-    </div></div>`;
+    `<div class="chk-add-row"><button class="chk-add-btn" onclick="openAddCheckItem()">Add Item</button></div></div>`;
 }
 
 function toggleChk(i) {
   checkedItems[i] = !checkedItems[i];
   localStorage.setItem('ck', JSON.stringify(checkedItems));
-  // Re-render just the checklist section body without closing it
   const sec = document.getElementById('sec-checklist');
   if (sec) {
+    const done = Object.values(checkedItems).filter(Boolean).length;
+    const meta = sec.querySelector('.section-meta');
+    if (meta) meta.textContent = `${done}/${CL.length} done`;
     const body = sec.querySelector('.section-body');
-    if (body) {
-      const done = Object.values(checkedItems).filter(Boolean).length;
-      sec.querySelector('.section-meta').textContent = `${done}/${CL.length} done`;
-      const chkWrap = body.querySelector('.chk-wrap');
-      if (chkWrap) chkWrap.outerHTML = renderChecklistBody().replace('<div class="chk-wrap">','<div class="chk-wrap">');
-      // Full partial re-render
-      body.innerHTML = '<div class="section-divider"></div>' + renderChecklistBody();
-    }
+    if (body) body.innerHTML = '<div class="section-divider"></div>' + renderChecklistBody();
   }
 }
 
-// ── PORTFOLIO EDIT ────────────────────────────────────────────────────────
+// ── PORTFOLIO EDIT ─────────────────────────────────────────────────────────
 function openPortfolioEdit() {
   document.getElementById('p-val').value    = pf.value;
   document.getElementById('p-sip').value    = pf.sip;
@@ -1213,7 +1868,6 @@ function savePortfolio() {
     fire:    document.getElementById('p-fire').value.trim()    || pf.fire
   };
   localStorage.setItem('pf', JSON.stringify(pf));
-  // Sync first two kn rows with updated emi/loan if they're the defaults
   if (knRows[0] && knRows[0].l === 'Personal Loan EMI') knRows[0].v = pf.emi + ' / mo';
   if (knRows[1] && knRows[1].l === 'Loan Closes')       knRows[1].v = pf.loan + ' 🎉';
   if (knRows[2] && knRows[2].l === 'Post-Loan SIP')     knRows[2].v = pf.postsip;
@@ -1223,7 +1877,7 @@ function savePortfolio() {
   toast('Portfolio updated ✓');
 }
 
-// ── GOAL CRUD ─────────────────────────────────────────────────────────────
+// ── GOAL CRUD ───────────────────────────────────────────────────────────────
 function openAddModal() {
   editingId = null;
   document.getElementById('m-goal-title').textContent = 'Add New Goal';
@@ -1296,22 +1950,12 @@ function saveGoal() {
   setNavSub();
 }
 
-function moveGoal(id, dir) {
-  const idx = goals.findIndex(g => g.id === id);
-  if (idx === -1) return;
-  const cat = goals[idx].category;
-  // Get indices of all goals in same category
-  const catIdxs = goals.map((g,i) => g.category===cat ? i : -1).filter(i=>i!==-1);
-  const posInCat = catIdxs.indexOf(idx);
-  const newPos = posInCat + dir;
-  if (newPos < 0 || newPos >= catIdxs.length) return; // already at top/bottom
-  const swapIdx = catIdxs[newPos];
-  // Swap
-  [goals[idx], goals[swapIdx]] = [goals[swapIdx], goals[idx]];
+function delGoal(id) {
+  if (!confirm('Delete this goal?')) return;
+  goals = goals.filter(g => g.id !== id);
   saveGoalsToStorage();
-  // Keep section open
-  openSections.add(`cat-${cat}`);
   renderAll();
+  toast('Goal deleted');
 }
 
 let renamingId = null;
@@ -1330,50 +1974,9 @@ function saveRename() {
   if (!g) return;
   g.name = name;
   saveGoalsToStorage();
-  openSections.add(`cat-${g.category}`);
   closeModal('m-rename');
   renderAll();
   toast('Goal renamed ✓');
-}
-
-function delGoal(id) {
-  if (!confirm('Delete this goal?')) return;
-  goals = goals.filter(g => g.id !== id);
-  saveGoalsToStorage();
-  renderAll();
-  toast('Goal deleted');
-}
-
-// ── MODAL HELPERS ─────────────────────────────────────────────────────────
-function openModal(id) {
-  document.getElementById(id).classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
-  document.body.style.overflow = '';
-}
-function overlayClose(e, id) {
-  if (e.target === document.getElementById(id)) closeModal(id);
-}
-
-function clearForm() {
-  ['f-name','f-target','f-year','f-emoji','f-cur','f-note'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
-  document.getElementById('f-cat').value    = 'Education';
-  document.getElementById('f-status').value = 'on-track';
-  document.getElementById('f-editor').innerHTML = '';
-}
-
-function addFundRow(name='', amount='') {
-  const e = document.getElementById('f-editor');
-  const r = document.createElement('div');
-  r.className = 'fer';
-  r.innerHTML = `<input class="fi" placeholder="Fund name" value="${name}"/>
-    <input class="fi amt" placeholder="₹0,000" value="${amount}"/>
-    <button class="btn-rf" onclick="this.parentElement.remove()">−</button>`;
-  e.appendChild(r);
 }
 
 // ── CHECKLIST CRUD ───────────────────────────────────────────────────────────
@@ -1396,7 +1999,6 @@ function saveCheckItem() {
 function delCheckItem(i) {
   if (!confirm('Delete this checklist item?')) return;
   CL.splice(i, 1);
-  // Shift checked state down
   const newChecked = {};
   Object.keys(checkedItems).forEach(k => {
     const idx = parseInt(k);
@@ -1454,53 +2056,36 @@ function delMilestone(i) {
   toast('Milestone deleted');
 }
 
-// ── SECTION MOVE UP/DOWN ─────────────────────────────────────────────────────
-function moveSection(normId, dir) {
-  const idx = sectionOrder.indexOf(normId);
-  if (idx === -1) return;
-  const newIdx = idx + dir;
-  if (newIdx < 0 || newIdx >= sectionOrder.length) return;
-  const [moved] = sectionOrder.splice(idx, 1);
-  sectionOrder.splice(newIdx, 0, moved);
-  localStorage.setItem('secOrder', JSON.stringify(sectionOrder));
-  renderAll();
+// ── MODAL HELPERS ─────────────────────────────────────────────────────────
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+function overlayClose(e, id) {
+  if (e.target === document.getElementById(id)) closeModal(id);
 }
 
-// ── SECTION DRAG REORDER ─────────────────────────────────────────────────────
-function initDragSections() {
-  const sections = document.querySelectorAll('.section[draggable="true"]');
-  let dragSrc = null;
-  sections.forEach(sec => {
-    sec.addEventListener('dragstart', e => {
-      // Only allow drag from handle
-      if (!e.target.classList.contains('drag-handle')) { e.preventDefault(); return; }
-      dragSrc = sec;
-      sec.classList.add('dragging');
-      e.dataTransfer.effectAllowed = 'move';
-    });
-    sec.addEventListener('dragend', () => sec.classList.remove('dragging'));
-    sec.addEventListener('dragover', e => { e.preventDefault(); sec.classList.add('drag-over'); });
-    sec.addEventListener('dragleave', () => sec.classList.remove('drag-over'));
-    sec.addEventListener('drop', e => {
-      e.preventDefault();
-      sec.classList.remove('drag-over');
-      if (dragSrc && dragSrc !== sec) {
-        const srcId = dragSrc.dataset.sid;
-        const tgtId = sec.dataset.sid;
-        // Normalize: cat-X sections are stored as just X in sectionOrder
-        const norm = id => id.startsWith('cat-') ? id.replace('cat-','') : id;
-        const si = sectionOrder.indexOf(norm(srcId));
-        const ti = sectionOrder.indexOf(norm(tgtId));
-        if (si!==-1 && ti!==-1) {
-          const [moved] = sectionOrder.splice(si,1);
-          sectionOrder.splice(ti,0,moved);
-          localStorage.setItem('secOrder', JSON.stringify(sectionOrder));
-          renderAll();
-        }
-      }
-    });
+function clearForm() {
+  ['f-name','f-target','f-year','f-emoji','f-cur','f-note'].forEach(id => {
+    document.getElementById(id).value = '';
   });
-  initInsuranceDrag();
+  document.getElementById('f-cat').value    = 'Education';
+  document.getElementById('f-status').value = 'on-track';
+  document.getElementById('f-editor').innerHTML = '';
+}
+
+function addFundRow(name='', amount='') {
+  const e = document.getElementById('f-editor');
+  const r = document.createElement('div');
+  r.className = 'fer';
+  r.innerHTML = `<input class="fi" placeholder="Fund name" value="${name}"/>
+    <input class="fi amt" placeholder="₹0,000" value="${amount}"/>
+    <button class="btn-rf" onclick="this.parentElement.remove()">−</button>`;
+  e.appendChild(r);
 }
 
 // ── TOAST ─────────────────────────────────────────────────────────────────
@@ -1516,6 +2101,7 @@ function toggleTheme() {
   const isDark = document.body.classList.toggle('dark');
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
   document.getElementById('theme-btn').textContent = isDark ? '☀️' : '🌙';
+  if (currentTab === 'more') renderMorePage();
 }
 
 function initTheme() {
@@ -1527,8 +2113,28 @@ function initTheme() {
   }
 }
 
+// ── HELPERS ──────────────────────────────────────────────────────────────────
+function trashSVG() {
+  return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>`;
+}
+
 // ── INIT ──────────────────────────────────────────────────────────────────
 initTheme();
+// Set initial nav state for home
+document.getElementById('nav-add-btn').style.display = 'none';
+document.getElementById('name-edit-btn').style.display = '';
+document.getElementById('nav-title').textContent = getAppTitle();
+
+// Auto-show scrollbar thumb while scrolling, hide after idle
+let scrollTimer = null;
+document.addEventListener('scroll', e => {
+  const m = e.target.closest?.('.modal');
+  if (!m) return;
+  m.classList.add('is-scrolling');
+  clearTimeout(scrollTimer);
+  scrollTimer = setTimeout(() => m.classList.remove('is-scrolling'), 800);
+}, true);
+
 fetchGoals();
 </script>
 </body>
